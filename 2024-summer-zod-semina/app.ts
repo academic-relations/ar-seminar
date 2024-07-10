@@ -1,12 +1,19 @@
 import express, { Express, Request, Response } from "express";
 import { z } from "zod";
 
+// import {
+//   dbElement,
+//   dbPaginationQueryParser,
+//   getDbIndexParser,
+//   twoPositiveIntegerParser,
+// } from "./interface-example/db";
+
 import {
   dbElement,
   dbPaginationQueryParser,
   getDbIndexParser,
   twoPositiveIntegerParser,
-} from "./interface-example/db";
+} from "./interface/db";
 
 const app: Express = express();
 const port = 3000;
