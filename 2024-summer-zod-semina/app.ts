@@ -1,5 +1,5 @@
-import express, { Express, Request, Response } from "express";
-import { z } from "zod";
+import express, { Express, Request, Response } from 'express';
+import { z } from 'zod';
 
 // import {
 //   dbElement,
@@ -13,21 +13,23 @@ import {
   dbPaginationQueryParser,
   getDbIndexParser,
   twoPositiveIntegerParser,
-} from "./interface/db";
+} from './interface/db';
 
 const app: Express = express();
 const port = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const mockDB: Array<z.infer<typeof dbElement>> = [];
 for (let i = 0; i < 10; i += 1) {
   mockDB[i] = { value: i, updatedAt: new Date() };
 }
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Typescript + Node.js + Express Server");
+app.get('/', (req: Request, res: Response) => {
+  res.send('Typescript + Node.js + Express Server');
 });
 
-app.post("/db", (req, res) => {
+app.post('/db', (req: Request, res: Response) => {
   const { a, b } = twoPositiveIntegerParser.parse(req.body);
 
   const data = { value: a + b, updatedAt: new Date() };
@@ -38,7 +40,7 @@ app.post("/db", (req, res) => {
   );
 });
 
-app.get("/db/:index", (req, res) => {
+app.get('/db/:index', (req: Request, res: Response) => {
   const dbIndexParser = getDbIndexParser(mockDB.length);
   const { index } = dbIndexParser.parse(req.params);
 
@@ -47,15 +49,15 @@ app.get("/db/:index", (req, res) => {
   res.send(`value ${data.value} is updated at ${data.updatedAt}`);
 });
 
-app.get("/db", (req, res) => {
+app.get('/db', (req: Request, res: Response) => {
   const { startDate, endDate, pageOffset, itemCount } =
     dbPaginationQueryParser.parse(req.query);
 
   const dateFilteredDB = mockDB.filter((e) => {
     if (startDate !== undefined && e.updatedAt < startDate) return false;
-    if (endDate !== undefined && e.updatedAt > endDate) return  false;
+    if (endDate !== undefined && e.updatedAt > endDate) return false;
     return true;
-  })
+  });
   const startIndex = (pageOffset - 1) * itemCount;
   const result = dateFilteredDB.slice(startIndex, startIndex + itemCount);
 
