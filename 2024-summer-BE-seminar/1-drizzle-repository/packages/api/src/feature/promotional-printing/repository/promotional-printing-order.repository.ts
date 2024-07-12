@@ -115,22 +115,13 @@ export class PromotionalPrintingOrderRepository {
   async postStudentPromotionalPrintingsOrder(
     parameter: PostStudentPromotionalPrintingsOrderParam,
   ) {
-    // 트랜잭션에 실패했을 경우의 에러 핸들링을 어떻게 하는것이 좋을까요?
+    // HW2: 설계한 DB 스키마에 적절하 값을 집어넣을 수 있는 쿼리를 구현하세요.
     await this.db.transaction(async tx => {
+      // HW2-1: PromotionalPrintingOrder 스키마에 insert를 수행해야 합니다.
+      // studentId는 임의의 값인 studentId = 1을 이용하세요.
+      // 여러분의 로컬 DB는 완전히 비어있는 상태이기 때문에, user table과 student, 그리고 club 테이블에 1개씩 테스트용 값을 집어넣어야 합니다.
       const [orderInsertResult] = await tx
-        .insert(PromotionalPrintingOrder)
-        .values({
-          clubId: parameter.clubId,
-          // 아직 인증 구현이 안되어서 임의의값을 집어넣은 상태입니다(하승종 Id)
-          studentId: 605,
-          studentPhoneNumber: parameter.krPhoneNumber,
-          promotionalPrintingOrderStatusEnum: Status.Applied,
-          documentFileLink: parameter.documentFileLink,
-          isColorPrint: parameter.isColorPrint,
-          fitPrintSizeToPaper: parameter.fitPrintSizeToPaper,
-          requireMarginChopping: parameter.requireMarginChopping,
-          desiredPickUpTime: parameter.desiredPickUpTime,
-        });
+        .insert(?????????);
       if (orderInsertResult.affectedRows !== 1) {
         logger.debug("[postStudentPromotionalPrintingsOrder] rollback occurs");
         tx.rollback();
@@ -140,14 +131,12 @@ export class PromotionalPrintingOrderRepository {
         `[postStudentPromotionalPrintingsOrder] PromotionalPrintingOrder inserted with id ${orderInsertResult.insertId}`,
       );
 
+      // HW2-2: PromotionalPrintingOrderSize 스키마에 insert를 수행해야 합니다.
+      // 아래 skeleton 코드는 foreach를 통해 여러번의 insertion을 수행해야 합니다.
+      // foreach를 통해 insert하는것은 좋은 선택은 아닙니다. 반복 횟수가 매우 적어 대충 짠 코드이니 다른데서 활용하지 말아주세요...ㅎ
       parameter.orders.forEach(async order => {
         const [sizeInsertResult] = await tx
-          .insert(PromotionalPrintingOrderSize)
-          .values({
-            promotionalPrintingOrderId: orderInsertResult.insertId,
-            promotionalPrintingSizeEnumId: order.promotionalPrintingSizeEnum,
-            numberOfPrints: order.numberOfPrints,
-          });
+          .insert(?????????);
         if (sizeInsertResult.affectedRows !== 1) {
           logger.debug(
             "[postStudentPromotionalPrintingsOrder] rollback occurs",
@@ -170,32 +159,10 @@ export class PromotionalPrintingOrderRepository {
     startDate?: Date,
     endDate?: Date,
   ): Promise<GetStudentPromotionalPrintingsOrdersMyReturn> {
-    const startIndex = (pageOffset - 1) * itemCount + 1;
-    const orders = await this.db
-      .select({
-        id: PromotionalPrintingOrder.id,
-        studentName: Student.name,
-        status: PromotionalPrintingOrder.promotionalPrintingOrderStatusEnum,
-        desiredPickUpDate: PromotionalPrintingOrder.desiredPickUpTime,
-        pickUpTime: PromotionalPrintingOrder.pickUpAt,
-        createdAt: PromotionalPrintingOrder.createdAt,
-      })
-      .from(PromotionalPrintingOrder)
-      .leftJoin(Student, eq(PromotionalPrintingOrder.studentId, Student.id))
-      .where(
-        and(
-          eq(PromotionalPrintingOrder.studentId, studentId),
-          startDate !== undefined
-            ? gte(PromotionalPrintingOrder.createdAt, startDate)
-            : undefined,
-          endDate !== undefined
-            ? lte(PromotionalPrintingOrder.createdAt, endDate)
-            : undefined,
-        ),
-      )
-      .orderBy(desc(PromotionalPrintingOrder.createdAt))
-      .limit(itemCount)
-      .offset(startIndex - 1);
+    // HW3: GetStudentPromotionalPrintingsOrdersMyReturn 타입에 알맞게 페이지네이션을 구현하세요. 
+    // hint: PromotionalPrintingOrder 스키마와 Student 스키마를 studentId를 통해 join하여 정보를 select해와야 합니다.
+    const offset = (pageOffset - 1) * itemCount;
+    const orders = // ???
 
     return orders;
   }

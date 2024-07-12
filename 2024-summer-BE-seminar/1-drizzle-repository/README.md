@@ -1,5 +1,7 @@
 # [ Academic Relations #002 ] SPARCS Clubs
 
+이 프로젝트는 2024년 07월 13일 Clubs 프로젝트의 dev 브랜치의 클론을 과제를 위해 수정한 버전입니다.
+
 ## How to run (as of 24.05.17)
 
 1. Login to `github` if not already done so.
