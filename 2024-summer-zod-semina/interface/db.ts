@@ -18,6 +18,7 @@ export const getDbIndexParser = (dbLength: number) =>
   z.object({
     // db의 크기를 받아 db 범위 내의 인덱스만을 값으로 받는 parser를 만들어 주세요
     // { index: int, 0 <= index <= db_max_index}
+    index: z.coerce.number().min(0).max(dbLength - 1),
   });
 
 export const dbPaginationQueryParser = z.object({
@@ -26,4 +27,8 @@ export const dbPaginationQueryParser = z.object({
   //      pageOffset: int, >= 1
   //      itemCount: int, >= 1
   //  },
+  startDate: z.optional(z.coerce.date()),
+  endDate: z.optional(z.coerce.date()),
+  pageOffset: z.coerce.number().int().min(1),
+  itemCount: z.coerce.number().int().min(1),
 });
