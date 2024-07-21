@@ -121,7 +121,18 @@ export class PromotionalPrintingOrderRepository {
       // studentId는 임의의 값인 studentId = 1을 이용하세요.
       // 여러분의 로컬 DB는 완전히 비어있는 상태이기 때문에, user table과 student, 그리고 club 테이블에 1개씩 테스트용 값을 집어넣어야 합니다.
       const [orderInsertResult] = await tx
-        .insert(?????????);
+        .insert(PromotionalPrintingOrder)
+        .values({
+          clubId: parameter.clubId,
+          studentId: 1,
+          studentPhoneNumber: parameter.krPhoneNumber,
+          promotionalPrintingOrderStatusEnum: Status.Applied,
+          documentFileLink: parameter.documentFileLink,
+          isColorPrint: parameter.isColorPrint,
+          fitPrintSizeToPaper: parameter.fitPrintSizeToPaper,
+          requireMarginChopping: parameter.requireMarginChopping,
+          desiredPickUpTime: parameter.desiredPickUpTime,
+        });
       if (orderInsertResult.affectedRows !== 1) {
         logger.debug("[postStudentPromotionalPrintingsOrder] rollback occurs");
         tx.rollback();
@@ -136,7 +147,12 @@ export class PromotionalPrintingOrderRepository {
       // foreach를 통해 insert하는것은 좋은 선택은 아닙니다. 반복 횟수가 매우 적어 대충 짠 코드이니 다른데서 활용하지 말아주세요...ㅎ
       parameter.orders.forEach(async order => {
         const [sizeInsertResult] = await tx
-          .insert(?????????);
+          .insert(PromotionalPrintingOrderSize)
+          .values({
+            promotionalPrintingOrderId: orderInsertResult.insertId,
+            promotionalPrintingSizeEnumId: order.promotionalPrintingSizeEnum,
+            numberOfPrints: order.numberOfPrints,
+          });
         if (sizeInsertResult.affectedRows !== 1) {
           logger.debug(
             "[postStudentPromotionalPrintingsOrder] rollback occurs",
