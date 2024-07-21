@@ -12,9 +12,16 @@ const TextInputInner = styled.div`
   align-items: center;
   gap: 8px;
   border-radius: 4px;
-  border: 1px solid ${({ theme }) => theme.colors.GRAY[200]}
+  border: 1px solid ${({ theme }) => theme.colors.GRAY[200]};
   background: ${({ theme }) => theme.colors.WHITE};
   &:hover {
-    border: 1px solid ${({ theme }) => theme.colors.GRAY[300]}
+    border: 1px solid ${({ theme }) => theme.colors.GRAY[300]};
+  }
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.PRIMARY};
   }
 `;
+
+const TextInput: React.FC<> = () => <TextInputInner>안채연</TextInputInner>;
+
+export default TextInput;
