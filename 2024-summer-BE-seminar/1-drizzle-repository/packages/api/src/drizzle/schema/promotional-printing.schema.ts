@@ -7,10 +7,11 @@ import {
   text,
   timestamp,
   varchar,
+  foreignKey,
 } from "drizzle-orm/mysql-core";
 
 import { Club } from "./club.schema";
-import { Student } from "./user.schema";
+import { Student, StudentT } from "./user.schema";
 
 /** 
  * # HW1
@@ -44,10 +45,28 @@ export const PromotionalPrintingSizeEnum = mysqlTable(
 export const PromotionalPrintingOrder = mysqlTable(
   "promotional_printing_order",
   {
-
+    id: int('id').notNull().unique().primaryKey().autoincrement(),
+    clubId: int('club_id').notNull().references(() => Club.id),
+    studentId: int('student_id').notNull().references(() => StudentT.id),
+    studentPhoneNumber: varchar('student_phone_number', {length: 30}),
+    promotionalPrintingOrderStatusEnum: int('promotional_printing_order_status_enum').notNull(),
+    documentFileLink: text('document_file_link'),
+    isColorPrint: boolean('is_color_print').notNull().default(true),
+    fitPrintSizeToPaper: boolean('fit_print_size_to_paper').notNull().default(true),
+    requireMarginChopping: boolean('require_margin_chopping').notNull().default(false),
+    numberOfPrints: int('number_of_prints').notNull(),
+    desiredPickUpTime: datetime('desired_pick_up_time').notNull(),
+    pickUpAt: datetime('pick_up_at'),
+    createdAt: timestamp('created_at').notNull(),
+    updatedAt: timestamp('updated_at').notNull(),
+    deleted_at: timestamp('deleted_at')
   },
   table => ({
-
+    promotionalPrintingOrderStatusEnumRef: foreignKey({
+      columns: [table.promotionalPrintingOrderStatusEnum],
+      foreignColumns: [PromotionalPrintingOrderStatusEnum.id],
+      name: 'promotional_printing_order_status_enum_fk'
+    })
   }),
 );
 
