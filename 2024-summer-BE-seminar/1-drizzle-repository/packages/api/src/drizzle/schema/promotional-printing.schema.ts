@@ -73,9 +73,24 @@ export const PromotionalPrintingOrder = mysqlTable(
 export const PromotionalPrintingOrderSize = mysqlTable(
   "promotional_printing_order_size",
   {
-
+    id: int('id').notNull().unique().primaryKey(),
+    promotionalPrintingOrderId: varchar('promotional_printing_order_id', {length: 30}).notNull(),
+    promotionalPrintingSizeEnumId: int('promotional_printing_size_enum_id').notNull(),
+    numberOfPrints: int('number_of_prints').notNull(),
+    createdAt: datetime('created_at').notNull(),
+    updatedAt: datetime('updated_at').notNull(),
+    deletedAt: datetime('deleted_at')
   },
   table => ({
-
+    promotionalPrintingOrderIdRef: foreignKey({
+      columns: [table.promotionalPrintingOrderId],
+      foreignColumns: [PromotionalPrintingOrder.id],
+      name: 'promotional_printing_order_id_fk'
+    }),
+    promotionalPrintingSizeEnumIdRef: foreignKey({
+      columns: [table.promotionalPrintingSizeEnumId],
+      foreignColumns: [PromotionalPrintingSizeEnum.id],
+      name: 'promotional_printing_size_enum_id_fk',
+    }),
   }),
 );
