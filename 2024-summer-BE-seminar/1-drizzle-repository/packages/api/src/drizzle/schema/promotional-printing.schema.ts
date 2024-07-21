@@ -23,10 +23,10 @@ export const PromotionalPrintingOrderStatusEnum = mysqlTable(
   "promotional_printing_order_status_enum",
   {
     id: int('id').notNull().unique().primaryKey().autoincrement(),
-    status_name: varchar('status_name', {length: 30}).notNull(),
-    created_at: timestamp('created_at').notNull(),
-    updated_at: timestamp('updated_at').notNull(),
-    deleted_at: timestamp('deleted_at')
+    statusName: varchar('status_name', {length: 30}).notNull(),
+    createdAt: timestamp('created_at').notNull(),
+    updatedAt: timestamp('updated_at').notNull(),
+    deletedAt: timestamp('deleted_at')
   },
 );
 
@@ -34,9 +34,9 @@ export const PromotionalPrintingSizeEnum = mysqlTable(
   "promotional_printing_size_enum",
   {
     id: int('id').notNull().unique().primaryKey().autoincrement(),
-    printing_size: varchar('printing_size', {length: 30}).notNull(),
-    created_at: timestamp('created_at').notNull(),
-    updated_at: timestamp('updated_at').notNull()
+    printingSize: varchar('printing_size', {length: 30}).notNull(),
+    createdAt: timestamp('created_at').notNull(),
+    updatedAt: timestamp('updated_at').notNull()
   },
 );
 
