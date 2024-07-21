@@ -25,8 +25,8 @@ export const PromotionalPrintingOrderStatusEnum = mysqlTable(
   {
     id: int('id').notNull().unique().primaryKey().autoincrement(),
     statusName: varchar('status_name', {length: 30}).notNull(),
-    createdAt: timestamp('created_at').notNull(),
-    updatedAt: timestamp('updated_at').notNull(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
     deletedAt: timestamp('deleted_at')
   },
 );
@@ -36,8 +36,8 @@ export const PromotionalPrintingSizeEnum = mysqlTable(
   {
     id: int('id').notNull().unique().primaryKey().autoincrement(),
     printingSize: varchar('printing_size', {length: 30}).notNull(),
-    createdAt: timestamp('created_at').notNull(),
-    updatedAt: timestamp('updated_at').notNull()
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow()
   },
 );
 
@@ -54,20 +54,19 @@ export const PromotionalPrintingOrder = mysqlTable(
     isColorPrint: boolean('is_color_print').notNull().default(true),
     fitPrintSizeToPaper: boolean('fit_print_size_to_paper').notNull().default(true),
     requireMarginChopping: boolean('require_margin_chopping').notNull().default(false),
-    numberOfPrints: int('number_of_prints').notNull(),
     desiredPickUpTime: datetime('desired_pick_up_time').notNull(),
     pickUpAt: datetime('pick_up_at'),
-    createdAt: timestamp('created_at').notNull(),
-    updatedAt: timestamp('updated_at').notNull(),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
     deleted_at: timestamp('deleted_at')
   },
-  table => ({
-    promotionalPrintingOrderStatusEnumRef: foreignKey({
-      columns: [table.promotionalPrintingOrderStatusEnum],
-      foreignColumns: [PromotionalPrintingOrderStatusEnum.id],
-      name: 'promotional_printing_order_status_enum_fk'
-    })
-  }),
+  // table => ({
+  //   promotionalPrintingOrderStatusEnumRef: foreignKey({
+  //     columns: [table.promotionalPrintingOrderStatusEnum],
+  //     foreignColumns: [PromotionalPrintingOrderStatusEnum.id],
+  //     name: 'promotional_printing_order_status_enum_fk'
+  //   })
+  // }),
 );
 
 export const PromotionalPrintingOrderSize = mysqlTable(
@@ -77,20 +76,20 @@ export const PromotionalPrintingOrderSize = mysqlTable(
     promotionalPrintingOrderId: varchar('promotional_printing_order_id', {length: 30}).notNull(),
     promotionalPrintingSizeEnumId: int('promotional_printing_size_enum_id').notNull(),
     numberOfPrints: int('number_of_prints').notNull(),
-    createdAt: datetime('created_at').notNull(),
-    updatedAt: datetime('updated_at').notNull(),
-    deletedAt: datetime('deleted_at')
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at').notNull().defaultNow().onUpdateNow(),
+    deletedAt: timestamp('deleted_at')
   },
-  table => ({
-    promotionalPrintingOrderIdRef: foreignKey({
-      columns: [table.promotionalPrintingOrderId],
-      foreignColumns: [PromotionalPrintingOrder.id],
-      name: 'promotional_printing_order_id_fk'
-    }),
-    promotionalPrintingSizeEnumIdRef: foreignKey({
-      columns: [table.promotionalPrintingSizeEnumId],
-      foreignColumns: [PromotionalPrintingSizeEnum.id],
-      name: 'promotional_printing_size_enum_id_fk',
-    }),
-  }),
+  // table => ({
+  //   promotionalPrintingOrderIdRef: foreignKey({
+  //     columns: [table.promotionalPrintingOrderId],
+  //     foreignColumns: [PromotionalPrintingOrder.id],
+  //     name: 'promotional_printing_order_id_fk'
+  //   }),
+  //   promotionalPrintingSizeEnumIdRef: foreignKey({
+  //     columns: [table.promotionalPrintingSizeEnumId],
+  //     foreignColumns: [PromotionalPrintingSizeEnum.id],
+  //     name: 'promotional_printing_size_enum_id_fk',
+  //   }),
+  // }),
 );
