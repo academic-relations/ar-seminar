@@ -5,6 +5,7 @@
     "node": true
   },
   "extends": [
+    "@typescript-eslint/parser",
     "plugin:@typescript-eslint/recommended",
     "airbnb",
     "airbnb-typescript",

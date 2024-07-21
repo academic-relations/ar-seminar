@@ -22,7 +22,11 @@ import { Student } from "./user.schema";
 export const PromotionalPrintingOrderStatusEnum = mysqlTable(
   "promotional_printing_order_status_enum",
   {
-
+    id: int('id').notNull().unique().primaryKey().autoincrement(),
+    status_name: varchar('status_name', {length: 30}).notNull(),
+    created_at: timestamp('created_at').notNull(),
+    updated_at: timestamp('updated_at').notNull(),
+    deleted_at: timestamp('deleted_at')
   },
 );
 
