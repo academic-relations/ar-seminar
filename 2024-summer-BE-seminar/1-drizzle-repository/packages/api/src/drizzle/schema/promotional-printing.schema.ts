@@ -33,7 +33,10 @@ export const PromotionalPrintingOrderStatusEnum = mysqlTable(
 export const PromotionalPrintingSizeEnum = mysqlTable(
   "promotional_printing_size_enum",
   {
-
+    id: int('id').notNull().unique().primaryKey().autoincrement(),
+    printing_size: varchar('printing_size', {length: 30}).notNull(),
+    created_at: timestamp('created_at').notNull(),
+    updated_at: timestamp('updated_at').notNull()
   },
 );
 
