@@ -111,6 +111,10 @@ const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [shownValue, setShownValue] = useState("");
 
+  useEffect(() => {
+    if (input === "") return;
+    setShownValue(`${input}개`);
+  }, [input, shownValue]);
   // useEffect(() => {
   //   const digitTest = /^\d*$/g.test(input);
   //   console.log(input);
@@ -132,6 +136,7 @@ const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
   // }, [input, constraint]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setShownValue(input);
     const value = e.target.value.replace("개", "");
     const digitTest = /^\d*$/g.test(value);
 
