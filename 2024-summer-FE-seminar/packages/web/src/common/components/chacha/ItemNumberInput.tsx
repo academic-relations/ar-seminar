@@ -16,6 +16,7 @@ interface ItemNumberInputProps
   placeholder: string;
   label: string;
   input?: string;
+  setInputValue?: (inputValue: string) => void;
 }
 
 const ItemInputWrapper = styled.div`
@@ -105,30 +106,62 @@ const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
   placeholder,
   label,
   input = "",
+  setInputValue = () => {},
 }) => {
-  const [inputValue, setInputValue] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
+  const [shownValue, setShownValue] = useState("");
 
-  useEffect(() => {
-    const digitTest = /^\d+$/g.test(input);
-    const inputNumber = parseInt(input);
+  // useEffect(() => {
+  //   const digitTest = /^\d*$/g.test(input);
+  //   console.log(input);
+  //   const inputNumber = parseInt(input);
 
-    if (input === "") {
+  //   if (input === "") {
+  //     setErrorMessage("");
+  //   } else if (!digitTest) {
+  //     setErrorMessage("숫자만 입력 가능합니다");
+  //     console.log(digitTest);
+  //   } else if (inputNumber > constraint) {
+  //     setErrorMessage("신청 가능 갯수를 초과했습니다");
+  //     console.log(constraint);
+  //     console.log(inputNumber);
+  //   } else {
+  //     setErrorMessage("");
+  //   }
+  //   setInputValue(input);
+  // }, [input, constraint]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace("개", "");
+    const digitTest = /^\d*$/g.test(value);
+
+    const inputValue = e.target.value.replace(/[^0-9]/g, "");
+    console.log(e.target.value);
+    const inputNumber = parseInt(inputValue);
+
+    if (value === "") {
       setErrorMessage("");
+      setInputValue("");
     } else if (!digitTest) {
+      setShownValue("");
+      setInputValue("");
       setErrorMessage("숫자만 입력 가능합니다");
-      console.log(digitTest);
     } else if (inputNumber > constraint) {
       setErrorMessage("신청 가능 갯수를 초과했습니다");
-      console.log(constraint);
-      console.log(inputNumber);
+      setInputValue(inputValue);
+      setShownValue(`${inputValue}개`);
     } else {
       setErrorMessage("");
-      setInputValue(inputNumber);
+      setInputValue(inputValue);
+      setShownValue(`${inputValue}개`);
     }
-  }, [input, constraint]);
+  };
 
-  const shownValue = input ? `${input}개` : "";
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const inputValue = e.target.value.replace("개", "");
+  //   console.log(input);
+  //   setInputValue(inputValue);
+  // };
 
   return (
     <ItemInputWrapper>
@@ -137,7 +170,14 @@ const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
         <Icon style={{ fontSize: "16px" }} />
       </ItemLabel>
       <ItemInputInner error={!!errorMessage}>
-        <ItemInput placeholder={placeholder} value={shownValue} />
+        <ItemInput
+          placeholder={placeholder}
+          disabled={disabled}
+          placeholder={placeholder}
+          value={shownValue}
+          onChange={handleChange}
+          error={!!errorMessage}
+        />
         <ItemInputConstraint>/ {constraint}개</ItemInputConstraint>
       </ItemInputInner>
       {errorMessage && <FormError>{errorMessage}</FormError>}

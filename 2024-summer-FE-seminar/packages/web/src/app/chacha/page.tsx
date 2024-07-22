@@ -9,6 +9,7 @@ import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 
 const Chacha = () => {
   const [inputText, setInputText] = useState("");
+  const [inputNumber, setInputNumber] = useState("");
 
   useEffect(() => {
     setInputText(inputText);
@@ -29,7 +30,13 @@ const Chacha = () => {
         inputValue={inputText}
         setInputValue={setInputText}
       />
-      <ItemNumberInput disabled={false} placeholder="내용" label="Label" />
+      <ItemNumberInput
+        disabled={false}
+        placeholder="내용"
+        label="Label"
+        input={inputNumber}
+        setInputValue={setInputNumber}
+      />
     </FlexWrapper>
   );
 };
