@@ -10,7 +10,7 @@ import Typography from "@sparcs-clubs/web/common/components/Typography";
 
 interface TextInputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
-  // 목적 : HTML 요소의 기본 속성을 쓸 수 있음.
+  // 의미 : HTML 요소의 기본 속성을 쓸 수 있음.
   disabled: boolean;
   error?: boolean;
   errorMessage?: string;
@@ -72,24 +72,29 @@ const TextInputWrapper = styled.div`
 const TextInput: React.FC<TextInputProps> = ({
   disabled,
   error = false,
-  errorMessage,
+  errorMessage = "",
   placeholder,
-  inputValue,
-  onValueChange = () => {},
+  inputValue = "", // 의미: api 연결 시 필요, 모듈화 목적?
+  onValueChange = () => {}, // 의미: 필요한 함수 대입 사용.
 }) => {
-  const setInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value;
-    onValueChange(input);
-  };
+  // 코드 참고
+  // const setInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const input = e.target.value;
+  //   onValueChange(input);
+  // };
+
+  useEffect(() => {
+    onValueChange(inputValue);
+  }, [inputValue]);
+
   return (
     <TextInputWrapper>
       <TextInputInner
         disabled={disabled}
         error={!!errorMessage}
         placeholder={placeholder}
-        onChange={setInputValue}
         value={inputValue}
-      ></TextInputInner>
+      />
       {errorMessage && <FormError>{errorMessage}</FormError>}
     </TextInputWrapper>
   );

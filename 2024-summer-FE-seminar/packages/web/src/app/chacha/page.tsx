@@ -9,7 +9,8 @@ import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 const Chacha = () => (
   <FlexWrapper>
     <TextInput disabled />
-    <TextInput disabled={false} />
+    <TextInput disabled={false} placeholder="내용" />
+    <TextInput disabled={false} placeholder="내용" errorMessage="에러 메세지" />
   </FlexWrapper>
 );
 
