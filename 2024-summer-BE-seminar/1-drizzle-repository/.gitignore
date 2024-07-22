@@ -1,0 +1,18 @@
+*.pub
+.env
+.env.prod
+**/node_modules
+*.log
+
+# IDE Configurations
+.idea
+.vscode/*
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# File system
+**/.DS_Store 
+
+# Git Submodules
+.clubs-secrets
+.DS_Store
