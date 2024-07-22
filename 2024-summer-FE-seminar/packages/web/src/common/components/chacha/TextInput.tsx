@@ -25,7 +25,9 @@ const TextInputWrapper = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.PRIMARY};
   }
   &:hover:not(:focus) {
-    border: 1px solid ${({ theme }) => theme.colors.GRAY[300]};
+    border: 1px solid
+      ${({ theme, disabled }) =>
+        disabled ? theme.colors.GRAY[200] : theme.colors.GRAY[300]};
   }
   &::placeholder {
     color: ${({ theme }) => theme.colors.GRAY[200]};
