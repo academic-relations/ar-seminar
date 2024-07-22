@@ -1,17 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { ChangeEvent, InputHTMLAttributes, useEffect } from "react";
 
 import styled from "styled-components";
 
+import FormError from "../FormError";
+
 import Typography from "@sparcs-clubs/web/common/components/Typography";
 
-interface TextInputProps {
+interface TextInputProps
+  extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+  // 목적 : HTML 요소의 기본 속성을 쓸 수 있음.
   disabled: boolean;
   error?: boolean;
+  errorMessage?: string;
+  placeholder: string;
+  inputValue?: string;
+  onValueChange?: (inputValue: string) => void;
 }
 
-const TextInputWrapper = styled.div`
+const TextInputInner = styled.input`
   display: flex;
   width: 300px;
   padding: 8px 12px;
@@ -22,12 +30,19 @@ const TextInputWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.GRAY[200]};
   background: ${({ theme }) => theme.colors.WHITE};
   &:focus {
-    border: 1px solid ${({ theme }) => theme.colors.PRIMARY};
+    outline: none;
+    border: 1px solid
+      ${({ theme, error, disabled }) =>
+        (!error && !disabled && theme.colors.PRIMARY) ||
+        (error && !disabled && theme.colors.RED[600])};
   }
   &:hover:not(:focus) {
     border: 1px solid
-      ${({ theme, disabled }) =>
-        disabled ? theme.colors.GRAY[200] : theme.colors.GRAY[300]};
+      ${({ theme, disabled, error }) =>
+        disabled
+          ? !error && theme.colors.GRAY[200]
+          : (!error && theme.colors.GRAY[300]) ||
+            (error && theme.colors.RED[600])};
   }
   &::placeholder {
     color: ${({ theme }) => theme.colors.GRAY[200]};
@@ -35,11 +50,10 @@ const TextInputWrapper = styled.div`
   ${({ disabled, theme }) =>
     `background-color: ${disabled ? theme.colors.GRAY[100] : theme.colors.WHITE};
     color: ${disabled ? theme.colors.GRAY[300] : theme.colors.BLACK};`}
-`;
 
-const TextInputInner = styled.div`
-  flex: 1 0 0;
-  color: inherit;
+  ${({ error, theme }) =>
+    error ? `border: 1px solid ${theme.colors.RED[600]};` : ``}
+
   font-family: ${({ theme }) => theme.fonts.FAMILY.PRETENDARD};
   font-size: 16px;
   font-style: normal;
@@ -47,10 +61,37 @@ const TextInputInner = styled.div`
   line-height: 20px;
 `;
 
-const TextInput: React.FC<TextInputProps> = ({ disabled, focused, error }) => (
-  <TextInputWrapper disabled={disabled} focused={focused} error={error}>
-    <TextInputInner>내용</TextInputInner>
-  </TextInputWrapper>
-);
+const TextInputWrapper = styled.div`
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`;
 
+const TextInput: React.FC<TextInputProps> = ({
+  disabled,
+  error = false,
+  errorMessage,
+  placeholder,
+  inputValue,
+  onValueChange = () => {},
+}) => {
+  const setInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    onValueChange(input);
+  };
+  return (
+    <TextInputWrapper>
+      <TextInputInner
+        disabled={disabled}
+        error={!!errorMessage}
+        placeholder={placeholder}
+        onChange={setInputValue}
+        value={inputValue}
+      ></TextInputInner>
+      {errorMessage && <FormError>{errorMessage}</FormError>}
+    </TextInputWrapper>
+  );
+};
 export default TextInput;
