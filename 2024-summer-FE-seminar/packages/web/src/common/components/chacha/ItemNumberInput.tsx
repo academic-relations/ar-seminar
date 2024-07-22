@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -10,13 +10,12 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 interface ItemNumberInputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
-  input?: string;
   constraint?: number;
   disabled: boolean;
   error?: boolean;
-  errorMessage?: string;
   placeholder: string;
   label: string;
+  input?: string;
 }
 
 const ItemInputWrapper = styled.div`
@@ -100,30 +99,36 @@ const ItemInputConstraint = styled.div`
 `;
 
 const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
-  input = "",
   constraint = 99,
   disabled,
   error = false,
-  errorMessage = "",
   placeholder,
   label,
+  input = "",
 }) => {
+  const [inputValue, setInputValue] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     const digitTest = /^\d+$/g.test(input);
     const inputNumber = parseInt(input);
 
-    if (!digitTest) {
-      errorMessage = "숫자만 입력 가능합니다";
+    if (input === "") {
+      setErrorMessage("");
+    } else if (!digitTest) {
+      setErrorMessage("숫자만 입력 가능합니다");
       console.log(digitTest);
     } else if (inputNumber > constraint) {
-      errorMessage = "신청 가능 갯수를 초과했습니다";
+      setErrorMessage("신청 가능 갯수를 초과했습니다");
       console.log(constraint);
       console.log(inputNumber);
     } else {
-      errorMessage = "";
+      setErrorMessage("");
+      setInputValue(inputNumber);
     }
-    // setInputValue(input);
   }, [input, constraint]);
+
+  const shownValue = input ? `${input}개` : "";
 
   return (
     <ItemInputWrapper>
@@ -132,7 +137,7 @@ const ItemNumberInput: React.FC<ItemNumberInputProps> = ({
         <Icon style={{ fontSize: "16px" }} />
       </ItemLabel>
       <ItemInputInner error={!!errorMessage}>
-        <ItemInput placeholder={placeholder} value={input} />
+        <ItemInput placeholder={placeholder} value={shownValue} />
         <ItemInputConstraint>/ {constraint}개</ItemInputConstraint>
       </ItemInputInner>
       {errorMessage && <FormError>{errorMessage}</FormError>}

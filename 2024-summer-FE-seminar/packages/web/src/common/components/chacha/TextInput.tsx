@@ -75,17 +75,13 @@ const TextInput: React.FC<TextInputProps> = ({
   errorMessage = "",
   placeholder,
   inputValue = "", // 의미: api 연결 시 필요, 모듈화 목적?
-  onValueChange = () => {}, // 의미: 필요한 함수 대입 사용.
+  setInputValue = () => {}, // 의미: 필요한 함수 대입 사용.
 }) => {
   // 코드 참고
-  // const setInputValue = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const input = e.target.value;
-  //   onValueChange(input);
-  // };
-
-  useEffect(() => {
-    onValueChange(inputValue);
-  }, [inputValue]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setInputValue(input);
+  };
 
   return (
     <TextInputWrapper>
@@ -94,6 +90,7 @@ const TextInput: React.FC<TextInputProps> = ({
         error={!!errorMessage}
         placeholder={placeholder}
         value={inputValue}
+        onChange={handleChange}
       />
       {errorMessage && <FormError>{errorMessage}</FormError>}
     </TextInputWrapper>
