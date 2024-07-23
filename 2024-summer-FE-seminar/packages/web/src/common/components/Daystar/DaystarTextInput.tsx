@@ -1,17 +1,37 @@
-import React, { ChangeEvent, useEffect, InputHTMLAttributes } from "react";
+import React, { ChangeEvent, InputHTMLAttributes, useEffect } from "react";
 
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import FormError from "../FormError";
-import Typography from "../Typography";
+// import Typography from "../Typography";
 
 export interface DaystarTextInputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
   placeholder?: string;
+  // hasError?: boolean; <- 이건 errorMessage의 존재 여부로 판단합니다
   errorMessage?: string;
   area?: boolean;
   disabled?: boolean;
+  handleChange?: (value: string) => void; // 값이 변할 때 상위 컴포넌트의 함수를 호출할 수 있도록
+  setErrorStatus?: (hasError: boolean) => void; // 에러 상태를 상위 컴포넌트에 전달
 }
+
+/*
+상황에 따라 사용할 css입니다.
+styled-components는 css를 정의하고 변수에 할당할 수 있도록 해 줍니다.
+여기서도 안에 함수 형식의 표기를 사용할 수 있습니다.
+스타일 정의의 가장 아랫 부분에, disabled 같은 props를 받아 그 props (boolean)
+값에 따라서 아래 스타일을 덮어쓸 것입니다. 
+*/
+
+const disabledStyle = css`
+  background: ${({ theme }) => theme.colors.GRAY[100]};
+  color: ${({ theme }) => theme.colors.GRAY[300]};
+`;
+
+const hasErrorStyle = css`
+  border: 1px solid ${({ theme }) => theme.colors.RED[600]};
+`;
 
 /*
 [styled-components로 theme 쓰기]
@@ -40,7 +60,7 @@ attrs() 함수 결과 뒤에 generic으로 달아 줍니다.
 
 const Input = styled.input.attrs<DaystarTextInputProps>(({ area }) => ({
   as: area ? "textarea" : "input",
-}))<DaystarTextInputProps>`
+}))<DaystarTextInputProps & { hasError: boolean }>`
   display: flex;
   width: 300px;
   padding: 8px 12px;
@@ -48,6 +68,72 @@ const Input = styled.input.attrs<DaystarTextInputProps>(({ area }) => ({
   align-items: center;
   gap: 8px;
   border-radius: 4px;
+  font-family: ${({ theme }) => theme.fonts.FAMILY.PRETENDARD};
+  color: ${({ theme }) => theme.colors.BLACK};
+  font-size: 16px;
   border: 1px solid ${({ theme }) => theme.colors.GRAY[200]};
-  background: var(--white, #fff);
+  background: ${({ theme }) => theme.colors.WHITE};
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.GRAY[200]};
+  }
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.PRIMARY};
+    outline: none;
+  }
+  &:hover:not(:focus) {
+    border: 1px solid ${({ theme }) => theme.colors.GRAY[300]};
+  }
+  ${({ disabled }) => disabled && disabledStyle}
+  ${({ hasError }) => hasError && hasErrorStyle}
 `;
+// 알고 보니 FormError라는 컴포넌트가 있었지만 연습의 흔적으로..
+// const ErrorMessage = styled.div<DaystarTextInputProps & { hasError: boolean }>`
+//   display: ${hasError => (hasError ? `block` : `none`)};
+//   color: ${({ theme }) => theme.colors.RED[600]};
+//   font-family: ${({ theme }) => theme.fonts.FAMILY.PRETENDARD};
+//   font-size: 12px;
+// `;
+
+const DaystarTextInputWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+const DaystarTextInput: React.FC<DaystarTextInputProps> = ({
+  placeholder = "",
+  errorMessage = "",
+  handleChange = () => {},
+  setErrorStatus = () => {},
+  ...props
+}) => {
+  // 에러 상태가 변하는 경우 전달 (이해가 부족하여 우선은 거의 그대로 코드를 가져왔습니다)
+  useEffect(() => {
+    const hasError = !!errorMessage; // 에러 존재 여부
+    if (errorMessage) {
+      setErrorStatus(hasError);
+    }
+  }, [errorMessage, setErrorStatus]);
+
+  const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    // input의 onChange 시에, 상위 컴포넌트에서 전달 받은
+    // 함수를 실행하도록 합니다.
+    const inputValue = e.target.value;
+    handleChange(inputValue);
+  };
+  return (
+    <DaystarTextInputWrapper>
+      <Input
+        placeholder={placeholder}
+        hasError={!!errorMessage}
+        {...props}
+        onChange={handleValueChange}
+      />
+      {!!errorMessage && <FormError>{errorMessage}</FormError>}
+    </DaystarTextInputWrapper>
+  );
+};
+
+export default DaystarTextInput;
