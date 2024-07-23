@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
 import { ChangeEvent, InputHTMLAttributes } from "react"
+
 import styled, { css } from "styled-components";
+
 import FormError from "../FormError";
 
 interface TextInputProps 

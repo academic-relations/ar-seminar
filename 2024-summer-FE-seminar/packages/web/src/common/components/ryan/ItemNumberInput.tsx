@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 
-import { useEffect, useRef, useState } from "react";
-import { ChangeEvent, InputHTMLAttributes } from "react"
+import { ChangeEvent, InputHTMLAttributes, useState } from "react";
+
 import styled, { css } from "styled-components";
+
 import FormError from "../FormError";
 import Typography from "../Typography";
 
@@ -68,6 +70,12 @@ const ItemNumberInput: React.FC<TextInputProps> = ({
     const [ value, setValue ] = useState(0);
     const [ errorMessage, setErrorMessage ] = useState("");
 
+    function validate(inputValue: number): string {
+      if (inputValue > maxValue)
+        return "신청 가능 개수를 초과했습니다"
+      return ""
+    }
+
     const onValueChange = (e: ChangeEvent<HTMLInputElement>) => {
       const inputString = e.target.value;
       const inputStringWithoutUnit =
@@ -76,7 +84,7 @@ const ItemNumberInput: React.FC<TextInputProps> = ({
         : inputString;
       const inputValue = Number(inputStringWithoutUnit);
 
-      if(isNaN(inputValue)) {
+      if(Number.isNaN(inputValue)) {
         setValue(value);
         setErrorMessage("숫자만 입력 가능합니다");
       } else {
@@ -87,15 +95,9 @@ const ItemNumberInput: React.FC<TextInputProps> = ({
       handleChange(inputValue);
     }
 
-    function validate(value: number): string {
-      if (value > maxValue)
-        return "신청 가능 개수를 초과했습니다"
-      return ""
-    }
-
     function valueString(): string {
-      if (value == 0) return "";
-      else return `${value}${unitString}`;
+      if (value === 0) return "";
+      return `${value}${unitString}`;
     }
 
     return (

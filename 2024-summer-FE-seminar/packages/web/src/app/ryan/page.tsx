@@ -1,19 +1,25 @@
+/* eslint-disable react/no-children-prop */
+
 "use client"
+
+import { useState } from "react";
+
+import styled from "styled-components";
 
 import Button from "@sparcs-clubs/web/common/components/Button";
 import Card from "@sparcs-clubs/web/common/components/Card";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import PageHead from "@sparcs-clubs/web/common/components/PageHead";
-import Typography from "@sparcs-clubs/web/common/components/Typography";
-import TextInput from "@sparcs-clubs/web/common/components/ryan/TextInput";
 import ItemNumberInput from "@sparcs-clubs/web/common/components/ryan/ItemNumberInput";
-import { useState } from "react";
-import styled from "styled-components";
+import TextInput from "@sparcs-clubs/web/common/components/ryan/TextInput";
+import Typography from "@sparcs-clubs/web/common/components/Typography";
+
 
 const MailInput = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px
+  gap: 10px;
+  width: 100%;
 `
 
 const RyanAssignmentPage: React.FC = () => {
@@ -49,7 +55,7 @@ const RyanAssignmentPage: React.FC = () => {
         <Typography>메일 주소를 입력하세요.</Typography>
         <MailInput>
           <TextInput
-            placeholder={"메일 ID"}
+            placeholder="메일 ID"
             disabled={false}
             value={mailId}
             errorMessage={idErrorMessage}
@@ -60,7 +66,7 @@ const RyanAssignmentPage: React.FC = () => {
           }/>
           <div style={{ position: 'relative', top: '8px' }}>@</div>
           <TextInput
-            placeholder={"메일 도메인 (ex. kaist.ac.kr)"}
+            placeholder="메일 도메인 (ex. kaist.ac.kr)"
             disabled={fixDomain}
             value={mailDomain}
             errorMessage={domainErrorMessage}
