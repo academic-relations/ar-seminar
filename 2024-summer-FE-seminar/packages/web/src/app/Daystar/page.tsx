@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+
 import styled from "styled-components";
 
 import Card from "@sparcs-clubs/web/common/components/Card";
@@ -21,6 +22,7 @@ const Daystar = () => {
   const [firstText, setFirstText] = useState("");
   const [secondText, setSecondText] = useState("");
   const [firstItemNumber, setFirstItemNumber] = useState("0");
+  const [solItemNumber, setSolItemNumber] = useState("0");
 
   const [secondHasError, setSecondHasError] = useState(true);
 
@@ -31,6 +33,10 @@ const Daystar = () => {
 
   const handleFirstItemNumberChange = (value: string) => {
     setFirstItemNumber(value);
+  };
+
+  const handleSolItemNumberChange = (value: string) => {
+    setSolItemNumber(value);
   };
 
   return (
@@ -48,6 +54,8 @@ const Daystar = () => {
           {`2번째 InputText : ${secondText}`}
           <br />
           {`1번째 ItemNumberInput : ${firstItemNumber}`}
+          <br />
+          {`기존 ItemNumberInput : ${solItemNumber}`}
         </Typography>
       </Card>
       <DaystarTextInput placeholder="Placeholder" handleChange={setFirstText} />
@@ -58,6 +66,7 @@ const Daystar = () => {
       />
       <DaystarTextInput placeholder="Disabled" disabled />
       <DaystarItemNumberInput
+        label="Label"
         value={firstItemNumber}
         itemLimit={50}
         unit="개"
@@ -65,11 +74,20 @@ const Daystar = () => {
         handleChange={handleFirstItemNumberChange}
       />
       <DaystarItemNumberInput
+        label="Disabled"
         itemLimit={50}
         disabled
         unit="개"
         placeholder="0개"
         handleChange={handleFirstItemNumberChange}
+      />
+      <ItemNumberInput
+        label="기존 Component"
+        value={solItemNumber}
+        itemLimit={9}
+        unit="개"
+        placeholder="(기존) 0개"
+        handleChange={handleSolItemNumberChange}
       />
     </DaystarWrapper>
   );

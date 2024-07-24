@@ -7,15 +7,20 @@ import React, {
 } from "react";
 
 import isPropValid from "@emotion/is-prop-valid";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+
 import styled, { css } from "styled-components";
 
 import FormError from "@sparcs-clubs/web/common/components/FormError";
+
+import Label from "../FormLabel";
 
 // import FormError from "../FormError";
 // import Typography from "../Typography";
 
 export interface DaystarItemNumberInputProps
   extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+  label?: string;
   placeholder?: string;
   // hasError?: boolean; <- 이건 errorMessage의 존재 여부로 판단합니다
   disabled?: boolean;
@@ -100,6 +105,20 @@ const InputWrapper = styled.div`
   align-items: center;
 `;
 
+const LabelHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+// 이것은 styled에 정의된 아이콘을
+const StyledInfoIcon = styled(InfoOutlinedIcon)`
+  color: ${({ theme }) => theme.colors.GRAY[300]};
+  cursor: pointer;
+  font-size: 16px;
+`;
+
 const DaystarItemNumberInputWrapper = styled.div`
   display: flex;
   width: 300px;
@@ -112,6 +131,7 @@ const DaystarItemNumberInput: React.FC<DaystarItemNumberInputProps> = ({
   itemLimit = 0,
   unit = null,
   value = "",
+  label = "",
   handleChange = () => {},
   setErrorStatus = () => {},
   ...props
@@ -171,6 +191,12 @@ const DaystarItemNumberInput: React.FC<DaystarItemNumberInputProps> = ({
 
   return (
     <DaystarItemNumberInputWrapper>
+      <LabelHeader>
+        {label && <Label>{label}</Label>}
+        <StyledInfoIcon
+          style={{ fontSize: "16px", width: "16px", height: "16px" }}
+        />
+      </LabelHeader>
       <InputWrapper>
         <Input
           ref={mainInputRef}
