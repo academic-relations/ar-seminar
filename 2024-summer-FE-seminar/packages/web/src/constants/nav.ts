@@ -6,7 +6,12 @@ const headerPaths: (keyof Paths)[] = [
   "COMMUNITY",
   "SERVICE",
 ];
-const footerPaths: (keyof Paths)[] = ["MADE_BY", "LICENSE", "TERMS_OF_SERVICE"];
+const footerPaths: (keyof Paths)[] = [
+  "MADE_BY",
+  "LICENSE",
+  "TERMS_OF_SERVICE",
+  "DAYSTAR",
+];
 
 const navPaths = {
   header: headerPaths,

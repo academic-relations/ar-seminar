@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import styled from "styled-components";
 
 import Card from "@sparcs-clubs/web/common/components/Card";
 import DaystarItemNumberInput from "@sparcs-clubs/web/common/components/Daystar/DaystarItemNumberInput";
@@ -10,10 +11,16 @@ import TextInput from "@sparcs-clubs/web/common/components/Forms/TextInput";
 import Select from "@sparcs-clubs/web/common/components/Select";
 import Typography from "@sparcs-clubs/web/common/components/Typography";
 
+const DaystarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
 const Daystar = () => {
   const [firstText, setFirstText] = useState("");
   const [secondText, setSecondText] = useState("");
-  const [firstItemNumber, setFirstItemNumber] = useState(0);
+  const [firstItemNumber, setFirstItemNumber] = useState("0");
 
   const [secondHasError, setSecondHasError] = useState(true);
 
@@ -23,41 +30,48 @@ const Daystar = () => {
   };
 
   const handleFirstItemNumberChange = (value: string) => {
-    setFirstItemNumber(parseInt(value));
+    setFirstItemNumber(value);
   };
 
   return (
-    <div>
+    <DaystarWrapper>
       <TextInput placeholder="" />
       <ItemNumberInput placeholder="" />
       <Select items={[]} />
       <Card outline gap={16}>
-        <Typography type="h3">안내사항</Typography>
+        <Typography type="h3">부모 컴포넌트가 받는 값들</Typography>
         <Typography>
           입력 값들
           <br />
-          {firstText}
+          {`1번째 InputText : ${firstText}`}
           <br />
-          {secondText}
+          {`2번째 InputText : ${secondText}`}
           <br />
-          {firstItemNumber}
+          {`1번째 ItemNumberInput : ${firstItemNumber}`}
         </Typography>
       </Card>
       <DaystarTextInput placeholder="Placeholder" handleChange={setFirstText} />
       <DaystarTextInput
-        placeholder="Error"
+        placeholder="5글자 미만이면 Error"
         errorMessage={secondHasError ? "5글자 이상 입력해주세요" : ""}
         handleChange={handleSecondTextChange}
       />
       <DaystarTextInput placeholder="Disabled" disabled />
       <DaystarItemNumberInput
-        value={firstItemNumber.toString()}
-        itemLimit={10}
+        value={firstItemNumber}
+        itemLimit={50}
         unit="개"
         placeholder="0개"
         handleChange={handleFirstItemNumberChange}
       />
-    </div>
+      <DaystarItemNumberInput
+        itemLimit={50}
+        disabled
+        unit="개"
+        placeholder="0개"
+        handleChange={handleFirstItemNumberChange}
+      />
+    </DaystarWrapper>
   );
 };
 

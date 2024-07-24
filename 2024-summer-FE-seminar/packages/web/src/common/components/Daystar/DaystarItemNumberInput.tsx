@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   InputHTMLAttributes,
   useEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -27,6 +28,14 @@ export interface DaystarItemNumberInputProps
 
 const errorStyle = css`
   border: 1px solid ${({ theme }) => theme.colors.RED[600]};
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.colors.RED[600]};
+  }
+`;
+
+const disabledStyle = css`
+  background: ${({ theme }) => theme.colors.GRAY[100]};
+  color: ${({ theme }) => theme.colors.GRAY[300]};
 `;
 
 const Input = styled.input.withConfig({
@@ -42,7 +51,7 @@ const Input = styled.input.withConfig({
   gap: 8px;
   align-self: stretch;
   border-radius: 4px;
-  color: var(--black, #333);
+  color: ${({ theme }) => theme.colors.BLACK};
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
@@ -62,6 +71,7 @@ const Input = styled.input.withConfig({
   }
 
   ${({ hasError }) => hasError && errorStyle};
+  ${({ disabled }) => disabled && disabledStyle};
 `;
 
 const MaxUnit = styled.div.withConfig({
@@ -110,8 +120,16 @@ const DaystarItemNumberInput: React.FC<DaystarItemNumberInputProps> = ({
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.replace(/[^0-9]/g, ""); // 숫자 형식만 떼어냅니다.
-    handleChange(inputValue); // 이 컴포넌트를 호출한 외부에서 처리하여 적절한 value 값으로
-    // 이 컴포넌트를 리렌더링해 줄 것입니다. => 아래의 useEffect가 작동하여 새로운 value에 대응합니다.
+
+    if (
+      inputValue.length <= itemLimit.toString().length &&
+      inputValue !== "0"
+    ) {
+      // 이 if문 구조는 너무 비용이 크지만 않다면 기존 컴포넌트에도 제안 드리고 싶습니다
+      // (itemLimit이 2자리보다 길어도 작동)
+      handleChange(inputValue); // 이 컴포넌트를 호출한 외부에서 처리하여 적절한 value 값으로
+      // 이 컴포넌트를 리렌더링해 줄 것입니다. => 아래의 useEffect가 작동하여 새로운 value에 대응합니다.
+    }
   };
 
   useEffect(() => {
@@ -119,7 +137,7 @@ const DaystarItemNumberInput: React.FC<DaystarItemNumberInputProps> = ({
     const amount = parseInt(value); // 입력을 숫자로 변환
     // 기존 코드를 가져왔습니다.
     if (value === "") {
-      // [ToDo] 빈 경우 -> 왜 이 경우에도 숫자만 입력하라 하지?
+      //
       setErrorMessage("");
       setErrorStatus(false);
     } else if (!isValidFormat) {
@@ -135,12 +153,31 @@ const DaystarItemNumberInput: React.FC<DaystarItemNumberInputProps> = ({
     }
   }, [value, itemLimit, setErrorStatus]);
 
+  const mainInputRef = useRef<HTMLInputElement>(null);
+  const displayValue = value ? `${value}${unit}` : "";
+
+  const handleCursor = () => {
+    // 매 입력 또는 선택마다 커서를 적절한 위치로 옮기는 함수입니다. 그대로 가져왔습니다.
+    // 이를 Input의 onSelect로 하여 키보드 입력 또는 커서 선택 시 숫자 범위를 벗어나지 않게 합니다.
+    mainInputRef.current?.setSelectionRange(
+      mainInputRef.current.selectionStart! >= displayValue.length
+        ? displayValue.length - 1
+        : mainInputRef.current.selectionStart,
+      mainInputRef.current.selectionEnd! >= displayValue.length
+        ? displayValue.length - 1
+        : mainInputRef.current.selectionEnd,
+    );
+  };
+
   return (
     <DaystarItemNumberInputWrapper>
       <InputWrapper>
         <Input
+          ref={mainInputRef}
           hasError={!!errorMessage}
           onChange={handleValueChange}
+          value={displayValue}
+          onSelect={handleCursor}
           {...props}
         />
         {unit && itemLimit && (
