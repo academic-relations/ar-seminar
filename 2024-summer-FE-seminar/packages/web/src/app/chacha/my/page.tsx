@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-
-const ChachaMy = () => {};
+import ChachaMyPageMainFrame from "@sparcs-clubs/web/features/my/frame/ChachaMyPageMainFrame";
+const ChachaMy = () => <ChachaMyPageMainFrame />;
 
 export default ChachaMy;
