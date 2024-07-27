@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { useRouter } from "next/navigation";
+
 import styled from "styled-components";
 
 import ClubListGrid from "@sparcs-clubs/web/features/clubs/components/ClubListGrid";
@@ -43,21 +45,31 @@ const TextButtonWrapper = styled.div`
   margin: 0 0 0 auto;
 `;
 
-const ChachaMyClubFrame = () => (
-  <FlexWrapper direction="column" gap={40}>
-    <FoldableSectionTitle title="나의 동아리" toggle={true} />
-    <MyClubInner>
-      <MyClubTitleWrapper>
-        <Typography ff="PRETENDARD" fs={20} lh={24} color="BLACK" fw="MEDIUM">
-          2024년 봄학기
-        </Typography>
-        <TextButtonWrapper>
-          <TextButton text="전체보기" disabled={false} onClick={() => {}} />
-        </TextButtonWrapper>
-      </MyClubTitleWrapper>
-      <ClubListGrid clubList={mockMyClubList.semesters[0].clubs} />
-    </MyClubInner>
-  </FlexWrapper>
-);
+const ChachaMyClubFrame = () => {
+  const router = useRouter();
+
+  const onClick = () => router.push(`/chacha/my/clubs`);
+
+  return (
+    <FlexWrapper direction="column" gap={40}>
+      <FoldableSectionTitle title="나의 동아리" toggle={true} />
+      <MyClubInner>
+        <MyClubTitleWrapper>
+          <Typography ff="PRETENDARD" fs={20} lh={24} color="BLACK" fw="MEDIUM">
+            2024년 봄학기
+          </Typography>
+          <TextButtonWrapper>
+            <TextButton
+              text="전체보기"
+              disabled={false}
+              onClick={() => onClick()}
+            />
+          </TextButtonWrapper>
+        </MyClubTitleWrapper>
+        <ClubListGrid clubList={mockMyClubList.semesters[0].clubs} />
+      </MyClubInner>
+    </FlexWrapper>
+  );
+};
 
 export default ChachaMyClubFrame;
