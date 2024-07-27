@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 import Card from "@sparcs-clubs/web/common/components/Card";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
-import PageHead from "@sparcs-clubs/web/common/components/PageHead";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import TextInput from "@sparcs-clubs/web/common/components/Forms/TextInput";
 import Button from "@sparcs-clubs/web/common/components/Button";
@@ -19,7 +18,7 @@ const ButtonWrapper = styled.div`
 
 const ChachaMyInfoFrame = () => (
   <FlexWrapper direction="column" gap={40}>
-    <FoldableSectionTitle title="나의 정보" toggle={true} />
+    <FoldableSectionTitle title="나의 정보" />
     <Card padding="32px" gap={32}>
       <TextInput label="전화번호" />
       <ButtonWrapper>

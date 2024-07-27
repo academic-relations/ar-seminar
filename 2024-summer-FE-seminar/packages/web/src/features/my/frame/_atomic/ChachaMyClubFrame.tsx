@@ -52,7 +52,7 @@ const ChachaMyClubFrame = () => {
 
   return (
     <FlexWrapper direction="column" gap={40}>
-      <FoldableSectionTitle title="나의 동아리" toggle={true} />
+      <FoldableSectionTitle title="나의 동아리" />
       <MyClubInner>
         <MyClubTitleWrapper>
           <Typography ff="PRETENDARD" fs={20} lh={24} color="BLACK" fw="MEDIUM">

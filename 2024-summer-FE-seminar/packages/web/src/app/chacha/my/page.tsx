@@ -7,6 +7,7 @@ import styled from "styled-components";
 import PageHead from "@sparcs-clubs/web/common/components/PageHead";
 import ChachaMyInfoFrame from "@sparcs-clubs/web/features/my/frame/_atomic/ChachaMyInfoFrame";
 import ChachaMyClubFrame from "@sparcs-clubs/web/features/my/frame/_atomic/ChachaMyClubFrame";
+import ChachaMyServiceFrame from "@sparcs-clubs/web/features/my/frame/_atomic/ChachaMyServiceFrame";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 
 const ChachaMy = () => (
@@ -17,6 +18,7 @@ const ChachaMy = () => (
     />
     <ChachaMyInfoFrame />
     <ChachaMyClubFrame />
+    <ChachaMyServiceFrame />
   </FlexWrapper>
 );
 
