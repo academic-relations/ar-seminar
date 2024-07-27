@@ -4,7 +4,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-import ClubCard from "@sparcs-clubs/web/features/clubs/components/ClubCard";
+import ClubListGrid from "@sparcs-clubs/web/features/clubs/components/ClubListGrid";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import TextButton from "@sparcs-clubs/web/common/components/TextButton";
@@ -55,8 +55,7 @@ const ChachaMyClubFrame = () => (
           <TextButton text="전체보기" disabled={false} onClick={() => {}} />
         </TextButtonWrapper>
       </MyClubTitleWrapper>
-      <ClubCard club="예쁜 영화" />
-      <ClubCard />
+      <ClubListGrid clubList={mockMyClubList.semesters[0].clubs} />
     </MyClubInner>
   </FlexWrapper>
 );
