@@ -82,7 +82,10 @@ const ItemInput = styled.input`
     color: ${disabled ? theme.colors.GRAY[300] : theme.colors.BLACK};`}
 
   ${({ error, theme }) =>
-    error ? `border: 1px solid ${theme.colors.RED[600]};` : ``};
+    error
+      ? `border: 1px solid ${theme.colors.RED[600]};
+    color: ${theme.colors.RED[600]}`
+      : ``};
 `;
 
 const ItemInputConstraint = styled.div`

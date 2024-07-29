@@ -15,7 +15,7 @@ const Chacha = () => {
     setInputText(inputText);
   }, [inputText]);
   return (
-    <FlexWrapper style={{ flexDirection: "column" }} gap={16}>
+    <FlexWrapper direction="column" gap={16}>
       <TextInput disabled inputValue={inputText} setInputValue={setInputText} />
       <TextInput
         disabled={false}
