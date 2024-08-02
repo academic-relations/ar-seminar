@@ -9,6 +9,7 @@ import { RentalOrderStatusEnum } from "@sparcs-clubs/interface/common/enum/renta
 import { ApiRnt003ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt003";
 import { ApiAcf003ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf003";
 import { ApiCms006ResponseOk } from "@sparcs-clubs/interface/api/common-space/endpoint/apiCms006";
+import { ApiPrt001ResponseOk } from "@sparcs-clubs/interface/api/printing-business/endpoint/apiPrt001";
 
 const chachaMockUpMyRental: ApiRnt003ResponseOK = {
   items: [
