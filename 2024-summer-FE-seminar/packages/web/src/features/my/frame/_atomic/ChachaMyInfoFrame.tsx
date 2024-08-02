@@ -22,13 +22,23 @@ const ChachaMyInfoFrame = () => {
   const [mockPhone, setMockPhone] = useState<string>(
     chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber,
   );
-  const [phone, setPhone] = useState<string>(mockPhone);
-  console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+  const newMockPhone =
+    mockPhone.slice(0, 3) +
+    "-" +
+    mockPhone.slice(3, 7) +
+    "-" +
+    mockPhone.slice(7, 11);
+  const [phone, setPhone] = useState<string>(newMockPhone);
+  // console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
 
-  useEffect(() => {
-    setMockPhone(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
-    console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
-  }, []);
+  // useEffect(() => {
+  //   setMockPhone(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+  //   console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+  // }, []);
+
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPhone(event.target.value);
+  };
 
   return (
     <FlexWrapper direction="column" gap={40}>
@@ -42,7 +52,7 @@ const ChachaMyInfoFrame = () => {
           <TextInput
             label="전화번호"
             value={phone}
-            onChange={() => setPhone(phone)}
+            onChange={handlePhoneChange}
           />
           <ButtonWrapper>
             <Button>저장</Button>
