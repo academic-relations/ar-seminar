@@ -167,4 +167,48 @@ const chachaMockUpMyCms: ApiCms006ResponseOk = {
   offset: 3,
 };
 
-export { chachaMockUpMyRental, chachaMockUpMyAcf, chachaMockUpMyCms };
+const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
+  items: [
+    {
+      id: 1,
+      studentName: "차차",
+      status: PromotionalPrintingOrderStatusEnum.Applied,
+      orders: [
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A4,
+          numberOfPrints: 100000000,
+        },
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A3,
+          numberOfPrints: 10,
+        },
+      ],
+      desiredPickUpDate: new Date(),
+      pickUpTime: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      studentName: "치치",
+      status: PromotionalPrintingOrderStatusEnum.Printed,
+      orders: [
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A4,
+          numberOfPrints: 1,
+        },
+      ],
+      desiredPickUpDate: "2024-01-01 12:00:00",
+      pickUpTime: "2024-01-01",
+      createdAt: new Date(),
+    },
+  ],
+  total: 2,
+  offset: 2,
+};
+
+export {
+  chachaMockUpMyRental,
+  chachaMockUpMyAcf,
+  chachaMockUpMyCms,
+  chachaMockUpMyPrint,
+};

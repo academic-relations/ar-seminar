@@ -11,11 +11,11 @@ import MyActivityCertificateTable from "@sparcs-clubs/web/features/my/component/
 import MyCommonSpaceTable from "@sparcs-clubs/web/features/my/component/MyCommonSpaceTable";
 import MyRentalTable from "@sparcs-clubs/web/features/my/component/MyRentalTable";
 import MyPrintingTable from "@sparcs-clubs/web/features/my/component/MyPrintingTable";
-import { mockupMyPrint } from "@sparcs-clubs/web/features/my/service/_mock/mockMyClub";
 import {
   chachaMockUpMyRental,
   chachaMockUpMyAcf,
   chachaMockUpMyCms,
+  chachaMockUpMyPrint,
 } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
 
 const ButtonWrapper = styled.div`
@@ -64,7 +64,7 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/printing-business"
               />
-              <MyPrintingTable printingList={mockupMyPrint} />
+              <MyPrintingTable printingList={chachaMockUpMyPrint} />
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
               <MoreDetailTitle
