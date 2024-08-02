@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
@@ -10,6 +10,8 @@ import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import TextInput from "@sparcs-clubs/web/common/components/Forms/TextInput";
 import Button from "@sparcs-clubs/web/common/components/Button";
 
+import chachaMockUpPhone from "@sparcs-clubs/web/features/my/user/_mock/chachaMockUpPhone";
+
 const ButtonWrapper = styled.div`
   display: flex;
   margin: 0 0 0 auto;
@@ -17,6 +19,17 @@ const ButtonWrapper = styled.div`
 
 const ChachaMyInfoFrame = () => {
   const [toggle, setToggle] = useState<boolean>(true);
+  const [mockPhone, setMockPhone] = useState<string>(
+    chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber,
+  );
+  const [phone, setPhone] = useState<string>(mockPhone);
+  console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+
+  useEffect(() => {
+    setMockPhone(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+    console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
+  }, []);
+
   return (
     <FlexWrapper direction="column" gap={40}>
       <FoldableSectionTitle
@@ -26,7 +39,11 @@ const ChachaMyInfoFrame = () => {
       />
       {toggle && (
         <Card padding="32px" gap={32}>
-          <TextInput label="전화번호" />
+          <TextInput
+            label="전화번호"
+            value={phone}
+            onChange={() => setPhone(phone)}
+          />
           <ButtonWrapper>
             <Button>저장</Button>
           </ButtonWrapper>
