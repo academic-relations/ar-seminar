@@ -94,9 +94,41 @@ const chachaMockUpMyRental: ApiRnt003ResponseOK = {
       endDate: "2024-08-01",
       createdAt: "2024-05-15",
     },
+    {
+      id: 4,
+      studentName: "채채",
+      objects: [
+        {
+          id: 1,
+          name: "도구",
+          number: 5,
+        },
+        {
+          id: 2,
+          name: "도구",
+          number: 1,
+        },
+        {
+          id: 3,
+          name: "도구",
+          number: 1,
+        },
+        {
+          id: 4,
+          name: "도구",
+          number: 5,
+        },
+      ],
+      statusEnum: RentalOrderStatusEnum.Rented,
+      desiredStart: "2024-06-01",
+      desiredEnd: "2024-07-01",
+      startDate: "2024-05-01",
+      endDate: "2024-08-01",
+      createdAt: "2024-05-15",
+    },
   ],
-  total: 3,
-  offset: 3,
+  total: 4,
+  offset: 4,
 };
 
 const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
@@ -129,9 +161,16 @@ const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
       statusEnum: ActivityCertificateOrderStatusEnum.Received,
       createdAt: new Date(),
     },
+    {
+      id: 5,
+      studentName: "채채",
+      issuedNumber: 1000000000,
+      statusEnum: ActivityCertificateOrderStatusEnum.Issued,
+      createdAt: new Date(),
+    },
   ],
-  total: 4,
-  offset: 4,
+  total: 5,
+  offset: 5,
 };
 
 const chachaMockUpMyCms: ApiCms006ResponseOk = {
@@ -202,9 +241,45 @@ const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
       pickUpTime: "2024-01-01",
       createdAt: new Date(),
     },
+    {
+      id: 3,
+      studentName: "차차",
+      status: PromotionalPrintingOrderStatusEnum.Approved,
+      orders: [
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A4,
+          numberOfPrints: 100000000,
+        },
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A3,
+          numberOfPrints: 10,
+        },
+      ],
+      desiredPickUpDate: new Date(),
+      pickUpTime: new Date(),
+      createdAt: new Date(),
+    },
+    {
+      id: 4,
+      studentName: "차차",
+      status: PromotionalPrintingOrderStatusEnum.Received,
+      orders: [
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A4,
+          numberOfPrints: 100000000,
+        },
+        {
+          promotionalPrintingSizeEnum: PromotionalPrintingSizeEnum.A3,
+          numberOfPrints: 10,
+        },
+      ],
+      desiredPickUpDate: new Date(),
+      pickUpTime: new Date(),
+      createdAt: new Date(),
+    },
   ],
-  total: 2,
-  offset: 2,
+  total: 4,
+  offset: 4,
 };
 
 export {
