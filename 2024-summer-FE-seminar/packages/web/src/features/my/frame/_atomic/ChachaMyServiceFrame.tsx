@@ -15,8 +15,8 @@ import {
   mockupMyAcf,
   mockupMyCms,
   mockupMyPrint,
-  mockupMyRental,
 } from "@sparcs-clubs/web/features/my/service/_mock/mockMyClub";
+import { chachaMockUpMyRental } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/rental-business"
               />
-              <MyRentalTable rentalList={mockupMyRental} />
+              <MyRentalTable rentalList={chachaMockUpMyRental} />
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
               <MoreDetailTitle
