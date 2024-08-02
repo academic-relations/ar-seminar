@@ -6,6 +6,9 @@ import {
 } from "@sparcs-clubs/interface/common/enum/promotionalPrinting.enum";
 import { RentalOrderStatusEnum } from "@sparcs-clubs/interface/common/enum/rental.enum";
 
+import { ApiRnt003ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt003";
+import { ApiAcf003ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf003";
+
 const chachaMockUpMyRental: ApiRnt003ResponseOK = {
   items: [
     {
@@ -14,21 +17,21 @@ const chachaMockUpMyRental: ApiRnt003ResponseOK = {
       objects: [
         {
           id: 1,
-          name: "도구1",
+          name: "돗자리",
           number: 3,
         },
         {
           id: 2,
-          name: "도구2",
+          name: "박스",
           number: 1,
         },
       ],
       statusEnum: RentalOrderStatusEnum.Applied,
-      desiredStart: "2024-05-01",
-      desiredEnd: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
-      createdAt: new Date(),
+      desiredStart: "2024-06-01",
+      desiredEnd: "2024-07-01",
+      startDate: "2024-05-01",
+      endDate: "2024-08-01",
+      createdAt: "2024-05-15",
     },
     {
       id: 2,
@@ -36,26 +39,26 @@ const chachaMockUpMyRental: ApiRnt003ResponseOK = {
       objects: [
         {
           id: 1,
-          name: "도구10",
+          name: "현수막",
           number: 5,
         },
         {
           id: 2,
-          name: "도구11",
+          name: "돗자리",
           number: 1,
         },
         {
           id: 3,
-          name: "도구12",
+          name: "도구",
           number: 1,
         },
       ],
       statusEnum: RentalOrderStatusEnum.Approved,
-      desiredStart: "2024-05-01",
-      desiredEnd: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
-      createdAt: new Date(),
+      desiredStart: "2024-06-01",
+      desiredEnd: "2024-07-01",
+      startDate: "2024-05-01",
+      endDate: "2024-08-01",
+      createdAt: "2024-05-15",
     },
     {
       id: 3,
@@ -63,35 +66,56 @@ const chachaMockUpMyRental: ApiRnt003ResponseOK = {
       objects: [
         {
           id: 1,
-          name: "도구20",
+          name: "도구",
           number: 5,
         },
         {
           id: 2,
-          name: "도구21",
+          name: "도구",
           number: 1,
         },
         {
           id: 3,
-          name: "도구22",
+          name: "도구",
           number: 1,
         },
         {
           id: 4,
-          name: "도구23",
+          name: "도구",
           number: 5,
         },
       ],
       statusEnum: RentalOrderStatusEnum.Returned,
-      desiredStart: "2024-05-01",
-      desiredEnd: new Date(),
-      startDate: new Date(),
-      endDate: new Date(),
-      createdAt: new Date(),
+      desiredStart: "2024-06-01",
+      desiredEnd: "2024-07-01",
+      startDate: "2024-05-01",
+      endDate: "2024-08-01",
+      createdAt: "2024-05-15",
     },
   ],
   total: 3,
+  offset: 3,
+};
+
+const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
+  items: [
+    {
+      id: 1,
+      studentName: "차차",
+      issuedNumber: 10,
+      statusEnum: ActivityCertificateOrderStatusEnum.Rejected,
+      createdAt: new Date(),
+    },
+    {
+      id: 2,
+      studentName: "채채",
+      issuedNumber: 20,
+      statusEnum: ActivityCertificateOrderStatusEnum.Approved,
+      createdAt: new Date(),
+    },
+  ],
+  total: 1,
   offset: 1,
 };
 
-export { chachaMockUpMyRental };
+export { chachaMockUpMyRental, chachaMockUpMyAcf };
