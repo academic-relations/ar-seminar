@@ -29,12 +29,6 @@ const ChachaMyInfoFrame = () => {
     "-" +
     mockPhone.slice(7, 11);
   const [phone, setPhone] = useState<string>(newMockPhone);
-  // console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
-
-  // useEffect(() => {
-  //   setMockPhone(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
-  //   console.log(chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber);
-  // }, []);
 
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPhone(event.target.value);
