@@ -8,6 +8,7 @@ import { RentalOrderStatusEnum } from "@sparcs-clubs/interface/common/enum/renta
 
 import { ApiRnt003ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt003";
 import { ApiAcf003ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf003";
+import { ApiCms006ResponseOk } from "@sparcs-clubs/interface/api/common-space/endpoint/apiCms006";
 
 const chachaMockUpMyRental: ApiRnt003ResponseOK = {
   items: [
@@ -102,7 +103,7 @@ const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
     {
       id: 1,
       studentName: "차차",
-      issuedNumber: 10,
+      issuedNumber: -10,
       statusEnum: ActivityCertificateOrderStatusEnum.Rejected,
       createdAt: new Date(),
     },
@@ -113,9 +114,57 @@ const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
       statusEnum: ActivityCertificateOrderStatusEnum.Approved,
       createdAt: new Date(),
     },
+    {
+      id: 3,
+      studentName: "초초",
+      issuedNumber: 20,
+      statusEnum: ActivityCertificateOrderStatusEnum.Applied,
+      createdAt: new Date(),
+    },
+    {
+      id: 4,
+      studentName: "채채",
+      issuedNumber: 1000000000,
+      statusEnum: ActivityCertificateOrderStatusEnum.Received,
+      createdAt: new Date(),
+    },
   ],
-  total: 1,
-  offset: 1,
+  total: 4,
+  offset: 4,
 };
 
-export { chachaMockUpMyRental, chachaMockUpMyAcf };
+const chachaMockUpMyCms: ApiCms006ResponseOk = {
+  items: [
+    {
+      orderId: 1,
+      statusEnum: CommonSpaceUsageOrderStatusEnum.Applied,
+      spaceName: "공간-1",
+      chargeStudentName: "차차",
+      startTerm: "2024-01-01",
+      endTerm: "2024-12-01",
+      createdAt: new Date(),
+    },
+    {
+      orderId: 2,
+      statusEnum: CommonSpaceUsageOrderStatusEnum.Canceled,
+      spaceName: "공간-2",
+      chargeStudentName: "초초",
+      startTerm: "2024-05-05",
+      endTerm: "2024-12-01",
+      createdAt: new Date(),
+    },
+    {
+      orderId: 3,
+      statusEnum: CommonSpaceUsageOrderStatusEnum.Used,
+      spaceName: "공간-3",
+      chargeStudentName: "치치",
+      startTerm: "2024-10-10",
+      endTerm: "2024-12-01",
+      createdAt: new Date(),
+    },
+  ],
+  total: 3,
+  offset: 3,
+};
+
+export { chachaMockUpMyRental, chachaMockUpMyAcf, chachaMockUpMyCms };

@@ -11,13 +11,11 @@ import MyActivityCertificateTable from "@sparcs-clubs/web/features/my/component/
 import MyCommonSpaceTable from "@sparcs-clubs/web/features/my/component/MyCommonSpaceTable";
 import MyRentalTable from "@sparcs-clubs/web/features/my/component/MyRentalTable";
 import MyPrintingTable from "@sparcs-clubs/web/features/my/component/MyPrintingTable";
-import {
-  mockupMyCms,
-  mockupMyPrint,
-} from "@sparcs-clubs/web/features/my/service/_mock/mockMyClub";
+import { mockupMyPrint } from "@sparcs-clubs/web/features/my/service/_mock/mockMyClub";
 import {
   chachaMockUpMyRental,
   chachaMockUpMyAcf,
+  chachaMockUpMyCms,
 } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
 
 const ButtonWrapper = styled.div`
@@ -82,7 +80,7 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/common-space"
               />
-              <MyCommonSpaceTable spaceList={mockupMyCms} />
+              <MyCommonSpaceTable spaceList={chachaMockUpMyCms} />
             </FlexWrapper>
           </ServiceTableWrapper>
         )}
