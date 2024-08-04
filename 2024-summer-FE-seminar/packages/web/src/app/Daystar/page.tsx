@@ -24,7 +24,7 @@ const Daystar = () => {
   const [firstItemNumber, setFirstItemNumber] = useState("0");
   const [solItemNumber, setSolItemNumber] = useState("0");
 
-  const [secondHasError, setSecondHasError] = useState(true);
+  const [secondHasError, setSecondHasError] = useState(false);
 
   const handleSecondTextChange = (value: string) => {
     setSecondText(value);

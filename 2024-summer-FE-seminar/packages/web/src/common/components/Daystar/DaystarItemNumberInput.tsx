@@ -57,10 +57,9 @@ const Input = styled.input.withConfig({
   align-self: stretch;
   border-radius: 4px;
   color: ${({ theme }) => theme.colors.BLACK};
-  font-family: Pretendard;
+  font-family: ${({ theme }) => theme.fonts.FAMILY.PRETENDARD};
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fonts.WEIGHT.REGULAR};
   line-height: 20px;
   border: 1px solid ${({ theme }) => theme.colors.GRAY[200]};
   background: ${({ theme }) => theme.colors.WHITE};
@@ -91,10 +90,9 @@ const MaxUnit = styled.div.withConfig({
   align-items: center;
   color: ${({ theme, hasError }) =>
     hasError ? theme.colors.RED[600] : theme.colors.GRAY[300]};
-  font-family: Pretendard;
+  font-family: ${({ theme }) => theme.fonts.FAMILY.PRETENDARD};
   font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
+  font-weight: ${({ theme }) => theme.fonts.WEIGHT.REGULAR};
   line-height: 20px; /* 125% */
 `;
 

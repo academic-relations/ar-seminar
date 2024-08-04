@@ -1,5 +1,7 @@
 import React, { ChangeEvent, InputHTMLAttributes, useEffect } from "react";
 
+import isPropValid from "@emotion/is-prop-valid";
+
 import styled, { css } from "styled-components";
 
 import FormError from "../FormError";
@@ -58,9 +60,13 @@ attrs() 함수 결과 뒤에 generic으로 달아 줍니다.
 5) 그 뒤에 ` `으로 감싼 style 정보를 명시합니다.
 */
 
-const Input = styled.input.attrs<DaystarTextInputProps>(({ area }) => ({
-  as: area ? "textarea" : "input",
-}))<DaystarTextInputProps & { hasError: boolean }>`
+const Input = styled.input
+  .attrs<DaystarTextInputProps>(({ area }) => ({
+    as: area ? "textarea" : "input",
+  }))
+  .withConfig({
+    shouldForwardProp: prop => isPropValid(prop),
+  })<DaystarTextInputProps & { hasError: boolean }>`
   display: flex;
   width: 300px;
   padding: 8px 12px;
