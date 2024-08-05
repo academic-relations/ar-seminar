@@ -6,7 +6,8 @@ import PageHead from "@sparcs-clubs/web/common/components/PageHead";
 
 import MyClubFrame from "../my/frame/_atomic/MyClubFrame";
 import MyInfoFrame from "../my/frame/_atomic/MyInfoFrame";
-import MyServiceFrame from "../my/frame/_atomic/MyServiceFrame";
+
+import DaystarMyServiceFrame from "./frames/DaystarMyServiceFrame";
 
 /*
 1. 각각의 Frame은 gap=60px로 세로로 배치된다
@@ -21,14 +22,14 @@ const DaystarMyPageMainFrame: React.FC = () => (
   <FlexWrapper direction="column" gap={60}>
     <PageHead
       items={[
-        { name: "마이페이지", path: "/my" },
-        { name: "나의 정보", path: "/my/info" },
+        { name: "Daystar", path: "/Daystar" },
+        { name: "마이페이지", path: "/Daystar/my" },
       ]}
       title="마이페이지"
     />
     <MyInfoFrame />
     <MyClubFrame />
-    <MyServiceFrame />
+    <DaystarMyServiceFrame />
   </FlexWrapper>
 );
 
