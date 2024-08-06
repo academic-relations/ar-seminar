@@ -19,9 +19,9 @@ const DaystarMyInfoFrame: React.FC = () => {
   const [currentPhone, setCurrentPhone] = React.useState<string>(mockPhone); // DB에서 마지막으로 가져온 전화번호
   const [errorPhone, setErrorPhone] = React.useState<boolean>(false);
 
-  const [buttonType, setButtonType] = React.useState<string>(
-    phone === currentPhone || errorPhone ? "disabled" : "default",
-  );
+  const [buttonType, setButtonType] = React.useState<
+    "default" | "outlined" | "disabled"
+  >(phone === currentPhone || errorPhone ? "disabled" : "default");
 
   const { data, isLoading, isError } = useGetMyInfo();
 
