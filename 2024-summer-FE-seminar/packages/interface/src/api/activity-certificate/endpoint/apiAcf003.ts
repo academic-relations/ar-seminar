@@ -27,15 +27,15 @@ const responseBodyMap = {
   [HttpStatusCode.Ok]: z.object({
     items: z.array(
       z.object({
-        orderId: z.number().int().min(1),
-        studentName: z.string(),
-        issuedNumber: z.number().int().min(1),
+        orderId: z.coerce.number().int().min(1),
+        studentName: z.coerce.string(),
+        issuedNumber: z.coerce.number().int().min(1),
         statusEnum: z.nativeEnum(ActivityCertificateOrderStatusEnum),
-        createdAt: z.date(),
+        createdAt: z.coerce.date(),
       }),
     ),
-    total: z.number().int().min(0),
-    offset: z.number().int().min(1),
+    total: z.coerce.number().int().min(0),
+    offset: z.coerce.number().int().min(1),
   }),
 };
 

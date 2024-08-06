@@ -40,18 +40,18 @@ const responseBodyMap = {
   [HttpStatusCode.Ok]: z.object({
     items: z.array(
       z.object({
-        orderId: z.number().int().min(1),
+        orderId: z.coerce.number().int().min(1),
         // 상태에 관한 prop이 없어서 임의로 추가했습니다. 리뷰하실 때 시트와 함께 검토해 주세요!
         statusEnum: z.nativeEnum(CommonSpaceUsageOrderStatusEnum),
-        spaceName: z.string(),
-        chargeStudentName: z.string().max(255),
+        spaceName: z.coerce.string(),
+        chargeStudentName: z.coerce.string().max(255),
         startTerm: z.coerce.date(), // Assuming startTerm is a datetime
         endTerm: z.coerce.date(), // Assuming endTerm is a datetime
         createdAt: z.coerce.date(), // Assuming createdAt is a datetime
       }),
     ),
-    total: z.number().int().min(0),
-    offset: z.number().int().min(1),
+    total: z.coerce.number().int().min(0),
+    offset: z.coerce.number().int().min(1),
   }),
 };
 
