@@ -38,7 +38,7 @@ const DaystarMyInfoFrame: React.FC = () => {
     setButtonType(
       phone === currentPhone || errorPhone ? "disabled" : "default",
     );
-  }, [phone]);
+  }, [phone, currentPhone, errorPhone]);
   // TODO: 실제 전화번호 수정 기능 연결 (현재 API가 없어 보여서 가져오는 부분만 구현했습니다)
 
   return (
