@@ -4,11 +4,11 @@ import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 
 import PageHead from "@sparcs-clubs/web/common/components/PageHead";
 
-import MyClubFrame from "../my/frame/_atomic/MyClubFrame";
-import MyInfoFrame from "../my/frame/_atomic/MyInfoFrame";
+import MyClubFrame from "@sparcs-clubs/web/features/my/frame/_atomic/MyClubFrame";
+// import MyInfoFrame from "@sparcs-clubs/web/features/my/frame/_atomic/MyInfoFrame";
 
-import DaystarMyServiceFrame from "./frames/DaystarMyServiceFrame";
-
+import DaystarMyInfoFrame from "./DaystarMyInfoFrame";
+import DaystarMyServiceFrame from "./DaystarMyServiceFrame";
 /*
 1. 각각의 Frame은 gap=60px로 세로로 배치된다
 2. 나의 정보 -> MyInfoFrame / 나의 동아리 -> MyClubFrame
@@ -27,7 +27,7 @@ const DaystarMyPageMainFrame: React.FC = () => (
       ]}
       title="마이페이지"
     />
-    <MyInfoFrame />
+    <DaystarMyInfoFrame />
     <MyClubFrame />
     <DaystarMyServiceFrame />
   </FlexWrapper>

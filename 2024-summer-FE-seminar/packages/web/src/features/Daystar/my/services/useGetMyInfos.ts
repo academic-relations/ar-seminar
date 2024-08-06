@@ -10,9 +10,13 @@ import apiPrt001, {
 import apiRnt003, {
   ApiRnt003ResponseOK,
 } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt003";
+import apiUsr001, {
+  ApiUsr001ResponseOK,
+} from "@sparcs-clubs/interface/api/user/endpoint/apiUsr001";
 
 import { useQuery } from "@tanstack/react-query";
 
+import mockupUserProfile from "@sparcs-clubs/web/features/common-space/service/_mock/mockupUserProfile";
 import {
   mockupMyAcf,
   mockupMyCms,
@@ -87,6 +91,22 @@ export const useGetMyPrint = () =>
     },
   });
 
+export const useGetMyInfo = () =>
+  useQuery<ApiUsr001ResponseOK, Error>({
+    queryKey: [apiUsr001.url()],
+    queryFn: async (): Promise<ApiUsr001ResponseOK> => {
+      const { data, status } = await axiosClient.get(apiUsr001.url(), {});
+
+      // Possible exceptions: UnexpectedAPIResponseError, ZodError, LibAxiosError
+      switch (status) {
+        case 200:
+          return apiUsr001.responseBodyMap[200].parse(data);
+        default:
+          throw new UnexpectedAPIResponseError();
+      }
+    },
+  });
+
 defineAxiosMock(mock => {
   mock.onGet(apiRnt003.url()).reply(() => {
     const dummy: ApiRnt003ResponseOK = mockupMyRental;
@@ -111,6 +131,13 @@ defineAxiosMock(mock => {
 defineAxiosMock(mock => {
   mock.onGet(apiCms006.url()).reply(() => {
     const dummy: ApiCms006ResponseOk = mockupMyCms;
+    return [200, dummy];
+  });
+});
+
+defineAxiosMock(mock => {
+  mock.onGet(apiUsr001.url()).reply(() => {
+    const dummy: ApiUsr001ResponseOK = mockupUserProfile;
     return [200, dummy];
   });
 });

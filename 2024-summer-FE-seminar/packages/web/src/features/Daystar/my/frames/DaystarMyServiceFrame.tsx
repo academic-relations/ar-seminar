@@ -9,7 +9,7 @@ import {
   useGetMyCms,
   useGetMyPrint,
   useGetMyRental,
-} from "@sparcs-clubs/web/features/Daystar/services/useGetMyInfos";
+} from "@sparcs-clubs/web/features/Daystar/my/services/useGetMyInfos";
 // import {
 //   mockupMyAcf,
 //   mockupMyCms,
