@@ -30,24 +30,24 @@ const responseBodyMap = {
   [HttpStatusCode.Ok]: z.object({
     items: z.array(
       z.object({
-        id: z.number().int().min(1),
-        studentName: z.string(),
+        id: z.coerce.number().int().min(1),
+        studentName: z.coerce.string(),
         status: z.nativeEnum(PromotionalPrintingOrderStatusEnum),
         orders: z.array(
           z.object({
             promotionalPrintingSizeEnum: z.nativeEnum(
               PromotionalPrintingSizeEnum,
             ),
-            numberOfPrints: z.number().min(1),
+            numberOfPrints: z.coerce.number().min(1),
           }),
         ),
-        desiredPickUpDate: z.date(),
-        pickUpTime: z.optional(z.date()),
-        createdAt: z.date(),
+        desiredPickUpDate: z.coerce.date(),
+        pickUpTime: z.optional(z.coerce.date()),
+        createdAt: z.coerce.date(),
       }),
     ),
-    total: z.number().int().min(0),
-    offset: z.number().int().min(1),
+    total: z.coerce.number().int().min(0),
+    offset: z.coerce.number().int().min(1),
   }),
 };
 

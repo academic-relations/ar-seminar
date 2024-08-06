@@ -27,25 +27,25 @@ const responseBodyMap = {
   [HttpStatusCode.Ok]: z.object({
     items: z.array(
       z.object({
-        id: z.number().int().min(0),
-        studentName: z.string(),
+        id: z.coerce.number().int().min(0),
+        studentName: z.coerce.string(),
         objects: z.array(
           z.object({
-            id: z.number().int().min(0),
-            name: z.string(),
-            number: z.number().int().min(1),
+            id: z.coerce.number().int().min(0),
+            name: z.coerce.string(),
+            number: z.coerce.number().int().min(1),
           }),
         ),
         statusEnum: z.nativeEnum(RentalOrderStatusEnum),
-        desiredStart: z.date(),
-        desiredEnd: z.date(),
-        startDate: z.date().optional(),
-        endDate: z.date().optional(),
-        createdAt: z.date(),
+        desiredStart: z.coerce.date(),
+        desiredEnd: z.coerce.date(),
+        startDate: z.coerce.date().optional(),
+        endDate: z.coerce.date().optional(),
+        createdAt: z.coerce.date(),
       }),
     ),
-    total: z.number().int().min(0),
-    offset: z.number().int().min(1),
+    total: z.coerce.number().int().min(0),
+    offset: z.coerce.number().int().min(1),
   }),
 };
 
