@@ -33,12 +33,8 @@ const MyClubTitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin: auto;
-  width: 1096px;
-  height: 24px;
   align-items: flex-start;
 `;
-
-const MyClubCardWrapper = styled.div``;
 
 const TextButtonWrapper = styled.div`
   display: flex;

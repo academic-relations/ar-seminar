@@ -18,4 +18,4 @@ const chachaMockUpMyPhone: ApiUsr001ResponseOk = {
   phoneNumber: "01071823758",
 };
 
-export default { chachaMockUpMyPhone };
+export default chachaMockUpMyPhone;

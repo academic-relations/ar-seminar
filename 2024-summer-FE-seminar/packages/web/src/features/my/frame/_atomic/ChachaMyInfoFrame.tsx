@@ -7,7 +7,7 @@ import styled from "styled-components";
 import Card from "@sparcs-clubs/web/common/components/Card";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
-import TextInput from "@sparcs-clubs/web/common/components/Forms/TextInput";
+import PhoneInput from "@sparcs-clubs/web/common/components/Forms/PhoneInput";
 import Button from "@sparcs-clubs/web/common/components/Button";
 
 import chachaMockUpPhone from "@sparcs-clubs/web/features/my/user/_mock/chachaMockUpPhone";
@@ -20,7 +20,7 @@ const ButtonWrapper = styled.div`
 const ChachaMyInfoFrame = () => {
   const [toggle, setToggle] = useState<boolean>(true);
   const [mockPhone, setMockPhone] = useState<string>(
-    chachaMockUpPhone.chachaMockUpMyPhone.phoneNumber,
+    chachaMockUpPhone.phoneNumber,
   );
   const newMockPhone =
     mockPhone.slice(0, 3) +
@@ -43,7 +43,7 @@ const ChachaMyInfoFrame = () => {
       />
       {toggle && (
         <Card padding="32px" gap={32}>
-          <TextInput
+          <PhoneInput
             label="전화번호"
             value={phone}
             onChange={handlePhoneChange}
