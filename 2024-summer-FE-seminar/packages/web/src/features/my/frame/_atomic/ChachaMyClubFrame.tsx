@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-
-import { useRouter } from "next/navigation";
-
 import styled from "styled-components";
 
 import ClubListGrid from "@sparcs-clubs/web/features/clubs/components/ClubListGrid";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
+import MoreDetailTitle from "@sparcs-clubs/web/common/components/MoreDetailTitle";
 import TextButton from "@sparcs-clubs/web/common/components/TextButton";
 import Typography from "@sparcs-clubs/web/common/components/Typography";
 import mockMyClubList from "@sparcs-clubs/web/features/my/clubs/service/_mock/mockMyClubList";
@@ -30,10 +28,7 @@ const MyClubInner = styled.div`
 
 // TODO: gap 처리
 const MyClubTitleWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-  align-items: flex-start;
+  padding-left: 24px;
 `;
 
 const TextButtonWrapper = styled.div`
@@ -42,10 +37,7 @@ const TextButtonWrapper = styled.div`
 `;
 
 const ChachaMyClubFrame = () => {
-  const router = useRouter();
   const [toggle, setToggle] = useState<boolean>(true);
-
-  const onClick = () => router.push(`/chacha/my/clubs`);
 
   return (
     <FlexWrapper direction="column" gap={40}>
@@ -55,27 +47,16 @@ const ChachaMyClubFrame = () => {
         toggleHandler={() => setToggle(!toggle)}
       />
       {toggle && (
-        <MyClubInner>
+        <FlexWrapper direction="column" gap={20}>
           <MyClubTitleWrapper>
-            <Typography
-              ff="PRETENDARD"
-              fs={20}
-              lh={24}
-              color="BLACK"
-              fw="MEDIUM"
-            >
-              2024년 봄학기
-            </Typography>
-            <TextButtonWrapper>
-              <TextButton
-                text="전체보기"
-                disabled={false}
-                onClick={() => onClick()}
-              />
-            </TextButtonWrapper>
+            <MoreDetailTitle
+              title="2024년 봄학기"
+              moreDetail="전체 보기"
+              moreDetailPath="/chacha/my/clubs"
+            />
           </MyClubTitleWrapper>
           <ClubListGrid clubList={mockMyClubList.semesters[0].clubs} />
-        </MyClubInner>
+        </FlexWrapper>
       )}
     </FlexWrapper>
   );

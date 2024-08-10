@@ -6,12 +6,12 @@ import {
 } from "@sparcs-clubs/interface/common/enum/promotionalPrinting.enum";
 import { RentalOrderStatusEnum } from "@sparcs-clubs/interface/common/enum/rental.enum";
 
-import { ApiRnt003ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt003";
+import { ApiRnt006ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt006";
 import { ApiAcf003ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf003";
 import { ApiCms006ResponseOk } from "@sparcs-clubs/interface/api/common-space/endpoint/apiCms006";
 import { ApiPrt001ResponseOk } from "@sparcs-clubs/interface/api/printing-business/endpoint/apiPrt001";
 
-const chachaMockUpMyRental: ApiRnt003ResponseOK = {
+const chachaMockUpMyRental: ApiRnt006ResponseOK = {
   items: [
     {
       id: 1,
