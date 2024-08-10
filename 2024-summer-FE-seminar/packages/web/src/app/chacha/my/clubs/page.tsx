@@ -6,6 +6,7 @@ import ClubListGrid from "@sparcs-clubs/web/features/clubs/components/ClubListGr
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
 import PageHead from "@sparcs-clubs/web/common/components/PageHead";
+import ClubsSectionFrame from "@sparcs-clubs/web/features/clubs/frames/ClubsSectionFrame";
 import mockMyClubList from "@sparcs-clubs/web/features/my/clubs/service/_mock/mockMyClubList";
 
 const ChachaMyClubs = () => {
@@ -22,12 +23,12 @@ const ChachaMyClubs = () => {
       />
       {mockMyClubList.semesters.map(e => (
         <React.Fragment key={e.id}>
-          <FoldableSectionTitle
+          <ClubsSectionFrame
+            showLength={false}
             title={e.name}
-            toggle={toggle}
-            toggleHandler={() => setToggle(!toggle)}
+            clubList={e.clubs}
+            key={e.name}
           />
-          <ClubListGrid clubList={e.clubs} />
         </React.Fragment>
       ))}
     </FlexWrapper>
