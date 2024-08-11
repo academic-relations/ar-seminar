@@ -20,6 +20,7 @@ import {
 } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
 import useGetMyRental from "@sparcs-clubs/web/features/my/service/useGetMyRental";
 import useGetMyAcf from "@sparcs-clubs/web/features/my/service/useGetMyAcf";
+import useGetMyPrt from "@sparcs-clubs/web/features/my/service/useGetMyPrt";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -63,6 +64,14 @@ const ChachaMyServiceFrame = () => {
     itemCount,
   );
 
+  const { prtData, prtIsLoading, prtIsError } = useGetMyPrt(
+    1, // clubId
+    startDate,
+    endDate,
+    pageOffset,
+    itemCount,
+  );
+
   return (
     mounted && (
       <FlexWrapper direction="column" gap={40}>
@@ -92,7 +101,9 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/printing-business"
               />
-              <MyPrintingTable printingList={chachaMockUpMyPrint} />
+              <AsyncBoundary isError={prtIsError} isLoading={prtIsLoading}>
+                <MyPrintingTable printingList={chachaMockUpMyPrint} />
+              </AsyncBoundary>
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
               <MoreDetailTitle
