@@ -20,7 +20,7 @@ const useGetMyRental = (requestQuery: ApiRnt006RequestQuery) => {
       const { data, status } = await axiosClient.get(apiRnt006.url(), {
         params: requestQuery,
       });
-      console.log("응답 데이터: ", data, "code: ", status);
+      // console.log("응답 데이터: ", data, "code: ", status);
 
       switch (status) {
         case 200: {
@@ -36,7 +36,7 @@ const useGetMyRental = (requestQuery: ApiRnt006RequestQuery) => {
 
 defineAxiosMock(mock => {
   mock.onGet(apiRnt006.url()).reply(() => {
-    console.log("Mock API 호출됨");
+    // console.log("Mock API 호출됨");
     return [200, chachaMockUpMyRental];
   }); // Code 200 과 함께 응답 반환
 });

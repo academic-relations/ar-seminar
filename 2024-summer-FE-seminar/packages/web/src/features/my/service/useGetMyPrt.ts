@@ -22,11 +22,11 @@ const useGetMyPrt = (requestQuery: ApiPrt005RequestQuery) => {
         });
 
         // console.log("Prt query: ", requestQuery);
-        console.log("Prt 응답 데이터: ", data, "code: ", status);
+        // console.log("Prt 응답 데이터: ", data, "code: ", status);
 
         switch (status) {
           case 200: {
-            console.log(apiPrt005.responseBodyMap[200].parse(data));
+            // console.log(apiPrt005.responseBodyMap[200].parse(data));
             return apiPrt005.responseBodyMap[200].parse(data);
           }
           default:

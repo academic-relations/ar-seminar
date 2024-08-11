@@ -19,15 +19,15 @@ const responseBodyMap = {
   [HttpStatusCode.Ok]: z.object({
     clubs: z.array(
       z.object({
-        id: z.number().int().min(1),
-        name: z.string().max(30),
+        id: z.coerce.number().int().min(1),
+        name: z.coerce.string().max(30),
       }),
     ),
-    name: z.string().max(30),
-    email: z.string().max(50),
-    department: z.string().max(10),
-    studentNumber: z.number().int().min(20000000).max(30000000),
-    phoneNumber: z.string().max(20).optional(),
+    name: z.coerce.string().max(30),
+    email: z.coerce.string().max(50),
+    department: z.coerce.string().max(10),
+    studentNumber: z.coerce.number().int().min(20000000).max(30000000),
+    phoneNumber: z.coerce.string().max(20).optional(),
   }),
 };
 

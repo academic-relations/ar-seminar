@@ -3,7 +3,7 @@ version: "3"
 services:
   db:
     image: mysql:8.0
-    container_name: sparcs-clubs-dev-db
+    container_name: sparcs-clubs-seminar-db
     ports:
       - "${DB_PORT:?err}:3306"
     environment:

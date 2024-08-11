@@ -20,8 +20,8 @@ const useGetMyAcf = (requestQuery: ApiAcf007RequestQuery) => {
         const { data, status } = await axiosClient.get(apiAcf007.url(), {
           params: requestQuery,
         });
-        console.log("Acf query: ", requestQuery);
-        console.log("Acf 응답 데이터: ", data, "code: ", status);
+        // console.log("Acf query: ", requestQuery);
+        // console.log("Acf 응답 데이터: ", data, "code: ", status);
         switch (status) {
           case 200:
             return apiAcf007.responseBodyMap[200].parse(data);
