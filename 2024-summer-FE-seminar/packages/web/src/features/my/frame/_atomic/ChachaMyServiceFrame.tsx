@@ -19,6 +19,7 @@ import {
   chachaMockUpMyPrint,
 } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
 import useGetMyRental from "@sparcs-clubs/web/features/my/service/useGetMyRental";
+import useGetMyAcf from "@sparcs-clubs/web/features/my/service/useGetMyAcf";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -48,6 +49,14 @@ const ChachaMyServiceFrame = () => {
   const itemCount = 10;
 
   const { rentalData, rentalIsLoading, rentalIsError } = useGetMyRental(
+    startDate,
+    endDate,
+    pageOffset,
+    itemCount,
+  );
+
+  const { acfData, acfIsLoading, acfIsError } = useGetMyAcf(
+    1, // clubId
     startDate,
     endDate,
     pageOffset,
@@ -91,7 +100,11 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/activity-certificate"
               />
-              <MyActivityCertificateTable certificateList={chachaMockUpMyAcf} />
+              <AsyncBoundary isLoading={acfIsLoading} isError={acfIsError}>
+                <MyActivityCertificateTable
+                  certificateList={chachaMockUpMyAcf}
+                />
+              </AsyncBoundary>
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
               <MoreDetailTitle
