@@ -21,6 +21,7 @@ import {
 import useGetMyRental from "@sparcs-clubs/web/features/my/service/useGetMyRental";
 import useGetMyAcf from "@sparcs-clubs/web/features/my/service/useGetMyAcf";
 import useGetMyPrt from "@sparcs-clubs/web/features/my/service/useGetMyPrt";
+import useGetMyCms from "@sparcs-clubs/web/features/my/service/useGetMyCms";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -44,33 +45,55 @@ const ChachaMyServiceFrame = () => {
   }, []);
   const [toggle, setToggle] = React.useState<boolean>(true);
 
-  const startDate = "2024-01-01";
-  const endDate = "2025-01-01";
-  const pageOffset = 10;
+  const startDate = new Date("2024-01-01");
+  const endDate = new Date("2025-01-01");
+  const pageOffset = 1;
   const itemCount = 10;
+  const clubId = 1;
 
-  const { rentalData, rentalIsLoading, rentalIsError } = useGetMyRental(
-    startDate,
-    endDate,
-    pageOffset,
-    itemCount,
-  );
+  const {
+    data: rentalData,
+    isLoading: rentalIsLoading,
+    isError: rentalIsError, // 받을 때 이름은 useQuery 반환 이름으로 맞춰 주어야 한다
+  } = useGetMyRental({
+    startDate: startDate,
+    endDate: endDate,
+    pageOffset: pageOffset,
+    itemCount: itemCount,
+  });
 
-  const { acfData, acfIsLoading, acfIsError } = useGetMyAcf(
-    1, // clubId
-    startDate,
-    endDate,
-    pageOffset,
-    itemCount,
-  );
+  const {
+    data: acfData,
+    isLoading: acfIsLoading,
+    isError: acfIsError,
+  } = useGetMyAcf({
+    startDate: startDate,
+    endDate: endDate,
+    pageOffset: pageOffset,
+    itemCount: itemCount,
+  });
 
-  const { prtData, prtIsLoading, prtIsError } = useGetMyPrt(
-    1, // clubId
-    startDate,
-    endDate,
-    pageOffset,
-    itemCount,
-  );
+  const {
+    data: prtData,
+    isLoading: prtIsLoading,
+    isError: prtIsError,
+  } = useGetMyPrt({
+    startDate: startDate,
+    endDate: endDate,
+    pageOffset: pageOffset,
+    itemCount: itemCount,
+  });
+
+  const {
+    data: cmsData,
+    isLoading: cmsIsLoading,
+    isError: cmsIsError,
+  } = useGetMyCms({
+    startDate: startDate,
+    endDate: endDate,
+    pageOffset: pageOffset,
+    itemCount: itemCount,
+  });
 
   return (
     mounted && (
@@ -92,7 +115,7 @@ const ChachaMyServiceFrame = () => {
                 isLoading={rentalIsLoading}
                 isError={rentalIsError}
               >
-                <MyRentalTable rentalList={chachaMockUpMyRental} />
+                <MyRentalTable rentalList={rentalData ? rentalData : []} />
               </AsyncBoundary>
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
@@ -102,7 +125,7 @@ const ChachaMyServiceFrame = () => {
                 moreDetailPath="/my/printing-business"
               />
               <AsyncBoundary isError={prtIsError} isLoading={prtIsLoading}>
-                <MyPrintingTable printingList={chachaMockUpMyPrint} />
+                <MyPrintingTable printingList={prtData ? prtData : []} />
               </AsyncBoundary>
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
@@ -113,7 +136,7 @@ const ChachaMyServiceFrame = () => {
               />
               <AsyncBoundary isLoading={acfIsLoading} isError={acfIsError}>
                 <MyActivityCertificateTable
-                  certificateList={chachaMockUpMyAcf}
+                  certificateList={acfData ? acfData : []}
                 />
               </AsyncBoundary>
             </FlexWrapper>
@@ -123,7 +146,9 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/common-space"
               />
-              <MyCommonSpaceTable spaceList={chachaMockUpMyCms} />
+              <AsyncBoundary isError={cmsIsError} isLoading={cmsIsLoading}>
+                <MyCommonSpaceTable spaceList={cmsData ? cmsData : []} />
+              </AsyncBoundary>
             </FlexWrapper>
           </ServiceTableWrapper>
         )}

@@ -40,9 +40,9 @@ const responseBodyMap = {
             numberOfPrints: z.number().int().min(0),
           }),
         ),
-        desiredPickUpDate: z.date(),
-        pickUpTime: z.date().optional(),
-        createdAt: z.date(), // timestamp를 datetime 문자열로 처리, claude가 요렇게 제안해줬는데 잘 되는지 확인해보고 싶어졌어요
+        desiredPickUpDate: z.coerce.date(),
+        pickUpTime: z.coerce.date().optional(),
+        createdAt: z.coerce.date(), // timestamp를 datetime 문자열로 처리, claude가 요렇게 제안해줬는데 잘 되는지 확인해보고 싶어졌어요
       }),
     ),
     total: z.number().int().min(0),

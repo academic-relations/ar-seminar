@@ -7,9 +7,9 @@ import {
 import { RentalOrderStatusEnum } from "@sparcs-clubs/interface/common/enum/rental.enum";
 
 import { ApiRnt006ResponseOK } from "@sparcs-clubs/interface/api/rental/endpoint/apiRnt006";
-import { ApiAcf003ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf003";
-import { ApiCms006ResponseOk } from "@sparcs-clubs/interface/api/common-space/endpoint/apiCms006";
-import { ApiPrt001ResponseOk } from "@sparcs-clubs/interface/api/printing-business/endpoint/apiPrt001";
+import { ApiAcf007ResponseOk } from "@sparcs-clubs/interface/api/activity-certificate/endpoint/apiAcf007";
+import { ApiCms007ResponseOk } from "@sparcs-clubs/interface/api/common-space/endpoint/apiCms007";
+import { ApiPrt005ResponseOk } from "@sparcs-clubs/interface/api/printing-business/endpoint/apiPrt005";
 
 const chachaMockUpMyRental: ApiRnt006ResponseOK = {
   items: [
@@ -131,83 +131,83 @@ const chachaMockUpMyRental: ApiRnt006ResponseOK = {
   offset: 4,
 };
 
-const chachaMockUpMyAcf: ApiAcf003ResponseOk = {
+const chachaMockUpMyAcf: ApiAcf007ResponseOk = {
   items: [
     {
-      id: 1,
+      orderId: 1,
       studentName: "차차",
-      issuedNumber: -10,
+      issuedNumber: 10,
       statusEnum: ActivityCertificateOrderStatusEnum.Rejected,
-      createdAt: new Date(),
+      createdAt: new Date("2024-03-01"),
     },
     {
-      id: 2,
+      orderId: 2,
       studentName: "채채",
       issuedNumber: 20,
       statusEnum: ActivityCertificateOrderStatusEnum.Approved,
-      createdAt: new Date(),
+      createdAt: new Date("2024-03-01"),
     },
     {
-      id: 3,
+      orderId: 3,
       studentName: "초초",
       issuedNumber: 20,
       statusEnum: ActivityCertificateOrderStatusEnum.Applied,
-      createdAt: new Date(),
+      createdAt: new Date("2024-03-01"),
     },
     {
-      id: 4,
+      orderId: 4,
       studentName: "채채",
       issuedNumber: 1000000000,
       statusEnum: ActivityCertificateOrderStatusEnum.Received,
-      createdAt: new Date(),
+      createdAt: new Date("2024-03-01"),
     },
     {
-      id: 5,
+      orderId: 5,
       studentName: "채채",
       issuedNumber: 1000000000,
       statusEnum: ActivityCertificateOrderStatusEnum.Issued,
-      createdAt: new Date(),
+      createdAt: new Date("2024-03-01"),
     },
   ],
   total: 5,
   offset: 5,
 };
 
-const chachaMockUpMyCms: ApiCms006ResponseOk = {
+const chachaMockUpMyCms: ApiCms007ResponseOk = {
   items: [
     {
       orderId: 1,
       statusEnum: CommonSpaceUsageOrderStatusEnum.Applied,
       spaceName: "공간-1",
       chargeStudentName: "차차",
-      startTerm: "2024-01-01",
-      endTerm: "2024-12-01",
-      createdAt: new Date(),
+      startTerm: "2024-03-01",
+      endTerm: "2024-03-01",
+      createdAt: "2024-03-01",
     },
     {
       orderId: 2,
       statusEnum: CommonSpaceUsageOrderStatusEnum.Canceled,
       spaceName: "공간-2",
       chargeStudentName: "초초",
-      startTerm: "2024-05-05",
-      endTerm: "2024-12-01",
-      createdAt: new Date(),
+      startTerm: "2024-03-01",
+      endTerm: "2024-03-01",
+      createdAt: "2024-03-01",
     },
     {
       orderId: 3,
       statusEnum: CommonSpaceUsageOrderStatusEnum.Used,
       spaceName: "공간-3",
       chargeStudentName: "치치",
-      startTerm: "2024-10-10",
-      endTerm: "2024-12-01",
-      createdAt: new Date(),
+      startTerm: "2024-03-01",
+      endTerm: "2024-03-01",
+      createdAt: "2024-03-01",
     },
   ],
   total: 3,
   offset: 3,
 };
 
-const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
+const chachaMockUpMyPrint: ApiPrt005ResponseOk = {
   items: [
     {
       id: 1,
@@ -223,9 +223,9 @@ const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
           numberOfPrints: 10,
         },
       ],
-      desiredPickUpDate: new Date(),
-      pickUpTime: new Date(),
-      createdAt: new Date(),
+      desiredPickUpDate: new Date("2024-03-01"),
+      pickUpTime: new Date("2024-03-01"),
+      createdAt: new Date("2024-03-01"),
     },
     {
       id: 2,
@@ -237,9 +237,9 @@ const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
           numberOfPrints: 1,
         },
       ],
-      desiredPickUpDate: "2024-01-01 12:00:00",
-      pickUpTime: "2024-01-01",
-      createdAt: new Date(),
+      desiredPickUpDate: new Date("2024-03-01"),
+      pickUpTime: new Date("2024-03-01"),
+      createdAt: new Date("2024-03-01"),
     },
     {
       id: 3,
@@ -255,9 +255,9 @@ const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
           numberOfPrints: 10,
         },
       ],
-      desiredPickUpDate: new Date(),
-      pickUpTime: new Date(),
-      createdAt: new Date(),
+      desiredPickUpDate: new Date("2024-03-01"),
+      pickUpTime: new Date("2024-03-01"),
+      createdAt: new Date("2024-03-01"),
     },
     {
       id: 4,
@@ -273,9 +273,9 @@ const chachaMockUpMyPrint: ApiPrt001ResponseOk = {
           numberOfPrints: 10,
         },
       ],
-      desiredPickUpDate: new Date(),
-      pickUpTime: new Date(),
-      createdAt: new Date(),
+      desiredPickUpDate: new Date("2024-03-01"),
+      pickUpTime: new Date("2024-03-01"),
+      createdAt: new Date("2024-03-01"),
     },
   ],
   total: 4,
