@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import styled from "styled-components";
 
+import AsyncBoundary from "@sparcs-clubs/web/common/components/AsyncBoundary";
 import FoldableSectionTitle from "@sparcs-clubs/web/common/components/FoldableSectionTitle";
 import FlexWrapper from "@sparcs-clubs/web/common/components/FlexWrapper";
 import MoreDetailTitle from "@sparcs-clubs/web/common/components/MoreDetailTitle";
@@ -17,6 +18,7 @@ import {
   chachaMockUpMyCms,
   chachaMockUpMyPrint,
 } from "@sparcs-clubs/web/features/my/service/_mock/chachaMockMyClub";
+import useGetMyRental from "@sparcs-clubs/web/features/my/service/useGetMyRental";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -40,6 +42,18 @@ const ChachaMyServiceFrame = () => {
   }, []);
   const [toggle, setToggle] = React.useState<boolean>(true);
 
+  const startDate = "2024-01-01";
+  const endDate = "2025-01-01";
+  const pageOffset = 10;
+  const itemCount = 10;
+
+  const { rentalData, rentalIsLoading, rentalIsError } = useGetMyRental(
+    startDate,
+    endDate,
+    pageOffset,
+    itemCount,
+  );
+
   return (
     mounted && (
       <FlexWrapper direction="column" gap={40}>
@@ -56,7 +70,12 @@ const ChachaMyServiceFrame = () => {
                 moreDetail="내역 더보기"
                 moreDetailPath="/my/rental-business"
               />
-              <MyRentalTable rentalList={chachaMockUpMyRental} />
+              <AsyncBoundary
+                isLoading={rentalIsLoading}
+                isError={rentalIsError}
+              >
+                <MyRentalTable rentalList={chachaMockUpMyRental} />
+              </AsyncBoundary>
             </FlexWrapper>
             <FlexWrapper direction="column" gap={20} style={{ width: "100%" }}>
               <MoreDetailTitle
